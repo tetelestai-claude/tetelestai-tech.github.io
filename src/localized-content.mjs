@@ -99,83 +99,6 @@ export const EN_SERVICE_PAGES = {
     ],
     final: { title: 'Want your landing page?', text: 'Send a message telling us what you sell. The proposal comes with price and timeline.' },
   },
-  career: {
-    path: '/en/international-career/',
-    label: 'International careers in tech',
-    metaTitle: 'International careers in tech | Tetelestai',
-    metaDescription: "Tetelestai's international tech careers front is being reworked. The guide and the one-on-one coaching are no longer on sale. Reach us on WhatsApp.",
-    eyebrow: 'International careers in tech',
-    heading: 'International careers in tech: being reworked',
-    intro: 'We are reworking this front. The guide and the one-on-one coaching that were sold here went off sale in November 2026.',
-    byline: 'By Carlos Viegas, a software engineer for 22 years who works from Brazil for international AI companies.',
-    ctaLabel: 'Message us on WhatsApp',
-    waMessage: "Hi! I'd like to talk about international careers in tech.",
-    clear: {
-      title: 'To be clear',
-      items: ['No job placement and no referrals to employers', 'No guarantee of interviews, hiring, salary or visas', 'No immigration legal advice'],
-    },
-    facts: [['Status', 'Being reworked'], ["Who it's for", 'Tech professionals in Brazil'], ['Led by', 'Carlos Viegas'], ['Contact', 'WhatsApp']],
-    author: {
-      eyebrow: 'Who leads it', name: 'Carlos Viegas',
-      paragraphs: [
-        'Carlos Viegas has been a software engineer for more than 22 years. He started in 2004 building high-volume systems for banks and telecom companies and was a tech lead at Banco do Brasil for 14 years.',
-        'Since 2025 he has worked remotely from Brasília, evaluating the quality of artificial intelligence models for international companies. Getting there meant an English CV, LinkedIn, eligibility forms and hiring processes at foreign companies.',
-      ],
-    },
-    status: {
-      eyebrow: 'Where this front stands', title: 'What changed',
-      text: 'The guide and the one-on-one coaching went off sale in November 2026. There is no date yet for the new format; this page will be updated when there is one.',
-    },
-    faqTitle: { eyebrow: 'FAQ', title: 'About this front' },
-    faqs: [
-      { q: 'Are the guide and the one-on-one coaching still on sale?', a: 'No. Both went off sale in November 2026.' },
-      { q: 'When will the new format be available?', a: 'There is no date yet. This page will be updated when there is one.' },
-      { q: 'Does Tetelestai guarantee interviews, a job or a visa?', a: "No. Interviews and hiring depend on employers. Tetelestai doesn't provide immigration legal advice either." },
-      { q: 'How do I reach Tetelestai about international careers?', a: "On the company's WhatsApp. Don't send a full CV or documents in your first message." },
-    ],
-    final: { title: 'Want to talk about international careers in tech?', text: 'Send us a message on WhatsApp.' },
-  },
-  aiTraining: {
-    path: '/en/ai-training/',
-    label: 'AI training',
-    metaTitle: 'Practical AI training for teams | Tetelestai',
-    metaDescription: "Hands-on artificial intelligence training on demand, tailored to your audience, your goal and your team's current level. Talk to Tetelestai on WhatsApp.",
-    eyebrow: 'AI training',
-    heading: 'Practical AI training for teams and professionals',
-    intro: "On-demand training built around your audience, your goal and your team's current level. No generic curriculum.",
-    ctaLabel: 'Talk about training',
-    waMessage: "Hi! I'd like to talk about AI training.",
-    examples: {
-      title: 'For example, we can work on',
-      items: ['Writing and reviewing customer service and sales copy', 'Organizing information, spreadsheets and reports', 'Creating social media content with human review', 'Using AI without exposing sensitive company data'],
-    },
-    facts: [['Format', 'On demand'], ["Who it's for", 'Individuals and companies'], ['Prerequisites', 'None'], ['Content', 'Set by your goal'], ['Instructor', 'Carlos Viegas'], ['How to start', 'A WhatsApp conversation']],
-    define: {
-      eyebrow: 'What we define together', title: 'Four decisions before the first session',
-      items: [
-        { k: '01', title: 'Audience and level', text: "Who's taking part and what they already know about AI." },
-        { k: '02', title: 'Goal and content', text: 'What the team should be able to do after the training.' },
-        { k: '03', title: 'Format', text: "Length, number of sessions and whether it's online or in person." },
-        { k: '04', title: 'Availability and terms', text: 'Dates, pricing and materials, in writing.' },
-      ],
-    },
-    how: {
-      eyebrow: 'How it works', title: 'From context to delivery',
-      steps: [
-        { k: 'Stage 1', title: 'Understand', text: "Your team's goals, context and constraints." },
-        { k: 'Stage 2', title: 'Define', text: 'Content, format and expected outcomes.' },
-        { k: 'Stage 3', title: 'Deliver', text: 'Hands-on sessions, materials and next steps.' },
-      ],
-    },
-    faqTitle: { eyebrow: 'FAQ', title: 'Before we start' },
-    faqs: [
-      { q: 'Who is the training for?', a: 'Individuals and companies that want to use artificial intelligence at work in a practical and safe way.' },
-      { q: 'Is there a fixed curriculum?', a: "No. Content is built on demand, based on the audience, the goal and the participants' level." },
-      { q: 'Do I need AI experience?', a: "No. Training starts from the group's current level." },
-      { q: 'What should I send to start?', a: "Who will take part, the goal and their current level. Please don't send sensitive data in the first message." },
-    ],
-    final: { title: "Let's talk about your team", text: 'Share the goal and who will take part. The proposal comes with format, dates and pricing.' },
-  },
 };
 
 export const EN_PORTFOLIO_PAGES = {
@@ -196,11 +119,6 @@ export const EN_PORTFOLIO_PAGES = {
       eyebrow: 'iOS and Android apps', title: 'Want an app for your business?',
       text: 'From prototype to publishing on the App Store and Google Play. Scope, timeline and price come in writing after a conversation.',
       cta: 'Get an app quote', waMessage: "Hi! I'd like a quote for an iOS/Android app for my business.",
-    },
-    instagram: {
-      eyebrow: 'Beyond the projects', title: 'Content on Instagram',
-      aside: 'Original videos and remixes from IA na Prática, shared in collaboration with TETELESTAI. Videos in Portuguese.',
-      more: 'Visit IA na Prática',
     },
     final: { title: 'Want a project like these?', text: 'Tell us what you need. The proposal comes with price and timeline.' },
   },

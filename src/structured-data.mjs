@@ -8,7 +8,7 @@ const ORGANIZATION_ID = `${ORIGIN}/#organization`;
 const WEBSITE_ID = `${ORIGIN}/#website`;
 const AREA_SERVED = [{ "@type": "Country", name: "Brasil" }];
 
-// Only facts that are visible on the site: no ratings, opening hours, street address or results.
+// Only facts that are visible on the site: no people, ratings, opening hours, street address or results.
 function organizationNode(locale) {
   return {
     "@type": "Organization",
@@ -24,10 +24,6 @@ function organizationNode(locale) {
     description: HOME[locale].metaDescription,
     address: { "@type": "PostalAddress", addressLocality: "Brasília", addressRegion: "DF", addressCountry: "BR" },
     areaServed: AREA_SERVED,
-    founder: [
-      { "@type": "Person", name: "Carlos Viegas", jobTitle: locale === "en" ? "Co-founder and CTO" : "Cofundador e CTO" },
-      { "@type": "Person", name: "Gabriela Rosa", jobTitle: locale === "en" ? "Co-founder and CEO" : "Cofundadora e CEO" },
-    ],
     contactPoint: { "@type": "ContactPoint", contactType: "sales", url: WHATSAPP_LINK, availableLanguage: ["pt-BR", "en"] },
     sameAs: [INSTAGRAM_URL],
   };
@@ -84,6 +80,23 @@ export function pageStructuredData({ page, locale, title, description }) {
     const crumbs = breadcrumbNode(url, locale, trail);
     webpage.breadcrumb = { "@id": crumbs["@id"] };
     graph.push(crumbs);
+  }
+
+  if (page === "home") {
+    // The homepage offer (AI and automation for law firms and notary offices) from its visible opening text; no price node.
+    const home = HOME[locale];
+    const serviceId = `${url}#service`;
+    graph.push({
+      "@type": "Service",
+      "@id": serviceId,
+      url,
+      name: home.serviceName,
+      serviceType: home.serviceName,
+      description: home.hero.lede,
+      provider: { "@id": ORGANIZATION_ID },
+      areaServed: { "@type": "AdministrativeArea", name: home.serviceArea },
+    });
+    webpage.mainEntity = { "@id": serviceId };
   }
 
   if (service) {

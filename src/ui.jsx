@@ -15,16 +15,16 @@ const ICONS = { arrow: IconArrow, back: IconArrowBack, out: IconOut, down: IconD
 
 /* ---------- Actions ---------- */
 // Where on the page a link sits, so GA4 shows which button people use.
-const PLACEMENTS = [[".wa-float", "floating"], [".site-head", "header"], [".mobile-menu", "menu"], [".sticky-cta", "sticky"], [".receipt", "price_note"], [".hero", "hero"], [".cta-final", "final_cta"], [".site-foot", "footer"]];
+const PLACEMENTS = [[".wa-float", "floating"], [".site-head", "header"], [".mobile-menu", "menu"], [".sticky-cta", "sticky"], [".receipt", "price_note"], [".price-card", "price_note"], [".hero, .hm-hero", "hero"], [".cta-final, .home-final", "final_cta"], [".site-foot", "footer"]];
 export function placementOf(element) {
   for (const [selector, name] of PLACEMENTS) if (element?.closest?.(selector)) return name;
   const id = element?.closest?.("section[id]")?.id;
   return id ? `section_${id.replace(/[^a-z0-9]+/gi, "_").toLowerCase()}`.slice(0, 40) : "content";
 }
 
-// What the visitor asked for: the landing page (primary goal) or a quote (secondary goal).
+// What the visitor asked for: the landing page, the free AI and automation diagnosis (homepage, since 18/11) or a quote.
 // The GA4 value stays "landing_697" so reports keep one series after the 09/11 price change.
-export const intentOf = message => (/landing page/i.test(message ?? "") ? "landing_697" : "orcamento");
+export const intentOf = message => (/landing page/i.test(message ?? "") ? "landing_697" : /diagn[óo]stic[oa]|diagnosis/i.test(message ?? "") ? "diagnostico" : "orcamento");
 
 // Every WhatsApp entry point reports the same consented `whatsapp_click` event, with its placement and intent.
 export function WhatsAppLink({ message, className = "btn btn--lg", children, icon = true }) {

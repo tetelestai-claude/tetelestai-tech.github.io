@@ -17,7 +17,6 @@ function ServiceHero({ locale, service, actions, media, headingClass = "h1 h1--m
           <p className="eyebrow">{service.eyebrow}</p>
           <h1 className={`${headingClass}`} id="service-title">{service.heading}</h1>
           <p className="lead">{service.intro}</p>
-          {service.byline && <p className="byline">{service.byline}</p>}
           <div className="btn-row">{actions}</div>
         </div>
         {media}
@@ -146,74 +145,6 @@ export function LandingPage({ locale }) {
           <hr className="divider" />
           <SectionHead eyebrow={service.how.eyebrow} title={service.how.title} id="how-title" />
           <Steps items={HOW_STEPS[locale]} />
-        </div>
-      </section>
-
-      <FaqSection eyebrow={service.faqTitle.eyebrow} title={service.faqTitle.title} items={service.faqs} />
-      <CtaFinal title={service.final.title} text={service.final.text} note={t.safety}>
-        <WhatsAppLink message={service.waMessage}>{service.ctaLabel}</WhatsAppLink>
-      </CtaFinal>
-    </PageShell>
-  );
-}
-
-// Neutral career page (2026-11-09): the guide and the coaching went off sale; no checkout, no prices.
-export function CareerPage({ locale }) {
-  const t = UI[locale];
-  const service = servicesFor(locale).career;
-  return (
-    <PageShell locale={locale} page="career" whatsapp={{ message: service.waMessage }}>
-      <ServiceHero locale={locale} service={service} headingClass="h1 h1--sm"
-        actions={<WhatsAppLink message={service.waMessage}>{service.ctaLabel}</WhatsAppLink>}
-        media={<div className="hero__media hero__media--flat"><div className="card card--glass load-shot examples"><p className="eyebrow">{service.clear.title}</p><ul>{service.clear.items.map(item => <li key={item}>{item}</li>)}</ul></div></div>} />
-
-      <section className="section light" aria-labelledby="author-title">
-        <div className="wrap split">
-          <div className="person" data-reveal="">
-            <div className="person__photo" aria-hidden="true">CV</div>
-            <div className="stack stack--sm">
-              <p className="eyebrow">{service.author.eyebrow}</p>
-              <h2 className="h2" id="author-title">{service.author.name}</h2>
-              {service.author.paragraphs.map(text => <p className="muted" key={text.slice(0, 24)}>{text}</p>)}
-            </div>
-          </div>
-          <div className="card" data-reveal="">
-            <p className="eyebrow">{service.status.eyebrow}</p>
-            <h3 className="h3">{service.status.title}</h3>
-            <p>{service.status.text}</p>
-          </div>
-        </div>
-      </section>
-
-      <FaqSection eyebrow={service.faqTitle.eyebrow} title={service.faqTitle.title} items={service.faqs} />
-      <CtaFinal title={service.final.title} text={service.final.text} note={t.safety}>
-        <WhatsAppLink message={service.waMessage}>{service.ctaLabel}</WhatsAppLink>
-      </CtaFinal>
-    </PageShell>
-  );
-}
-
-export function AiPage({ locale }) {
-  const t = UI[locale];
-  const service = servicesFor(locale).aiTraining;
-  return (
-    <PageShell locale={locale} page="aiTraining" whatsapp={{ message: service.waMessage }}>
-      <ServiceHero locale={locale} service={service}
-        actions={<WhatsAppLink message={service.waMessage}>{service.ctaLabel}</WhatsAppLink>}
-        media={<div className="hero__media hero__media--flat"><div className="card card--glass load-shot examples"><p className="eyebrow">{service.examples.title}</p><ul>{service.examples.items.map(item => <li key={item}>{item}</li>)}</ul></div></div>} />
-
-      <section className="section light" aria-labelledby="define-title">
-        <div className="wrap">
-          <SectionHead eyebrow={service.define.eyebrow} title={service.define.title} id="define-title" />
-          <CardGrid items={service.define.items} columns={2} />
-        </div>
-      </section>
-
-      <section className="section light section--flush" aria-labelledby="how-title">
-        <div className="wrap">
-          <hr className="divider" />
-          <SectionHead eyebrow={service.how.eyebrow} title={service.how.title} id="how-title" />
-          <Steps items={service.how.steps} />
         </div>
       </section>
 

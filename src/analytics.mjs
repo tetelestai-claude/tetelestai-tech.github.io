@@ -5,7 +5,7 @@ export const CONSENT_DURATION = 180 * 24 * 60 * 60 * 1000;
 export const PREFERENCES_EVENT = "tetelestai:cookie-preferences";
 export const TEST_MODE_KEY = "tetelestai:test-mode:v1";
 
-const PAGE_PATHS = ["/", "/en/", "/criacao-de-sites/", "/criacao-de-landing-pages/", "/carreira-internacional/", "/capacitacao-em-ia/", "/projetos/", "/projetos/infinity-car-studio/", "/projetos/bolachinhas-da-vovo-juju/", "/projetos/afeto-nobre/", "/projetos/lalelis/", "/projetos/respeitavel-feijuca/", "/en/website-development/", "/en/landing-pages/", "/en/international-career/", "/en/ai-training/", "/en/projects/", "/en/projects/infinity-car-studio/", "/en/projects/bolachinhas-da-vovo-juju/", "/en/projects/afeto-nobre/", "/en/projects/lalelis/", "/en/projects/respeitavel-feijuca/"];
+const PAGE_PATHS = ["/", "/en/", "/criacao-de-sites/", "/criacao-de-landing-pages/", "/projetos/", "/projetos/infinity-car-studio/", "/projetos/bolachinhas-da-vovo-juju/", "/projetos/afeto-nobre/", "/projetos/lalelis/", "/projetos/respeitavel-feijuca/", "/en/website-development/", "/en/landing-pages/", "/en/projects/", "/en/projects/infinity-car-studio/", "/en/projects/bolachinhas-da-vovo-juju/", "/en/projects/afeto-nobre/", "/en/projects/lalelis/", "/en/projects/respeitavel-feijuca/"];
 
 export function measurementPath(pathname) {
   return PAGE_PATHS.find(path => pathname === path || pathname === `${path}index.html` ||
@@ -188,7 +188,7 @@ export function createAnalyticsController(win, doc, now = Date.now) {
       ...context(path), send_to: MEASUREMENT_ID,
       page_path: path, site_language: path.startsWith("/en/") ? "en" : "pt",
       contact_placement: placementName(placement),
-      contact_intent: intent === "landing_697" ? "landing_697" : "orcamento",
+      contact_intent: ["landing_697", "diagnostico"].includes(intent) ? intent : "orcamento",
     });
   }
 

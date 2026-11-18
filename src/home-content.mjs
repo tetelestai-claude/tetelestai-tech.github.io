@@ -1,7 +1,12 @@
 // Shared interface copy and homepage content (PT/EN).
-// Redesign 2026-10: the homepage leads with the landing page offer (R$ 297 + R$ 97/month since 09/11) for small
-// businesses; career and AI training remain as separate fronts with their own pages.
-// Statements marked CONFIRM in AGENTS.md must be confirmed by Carlos before publishing.
+// Positioning approved by Carlos on 2026-11-18: the homepage presents AI and automation for law firms and
+// notary and registry offices (cartórios) in the Federal District, and asks for a free diagnosis over WhatsApp.
+// Websites and landing pages (R$ 297 + R$ 97/month) live on their own pages. Texts come from the approved
+// prototype (site-novo-2026-11/fonte/prototipo-home.html); do not add clients, figures or promises.
+
+import { APP_STORE_LINKS, DE_ROLE_APP_STORE } from "./app-store-links.mjs";
+
+const NB = " "; // non-breaking space between "R$" and the amount
 
 export const UI = {
   pt: {
@@ -12,14 +17,19 @@ export const UI = {
     navLabel: "Navegação principal",
     nav: [
       ["sites", "Sites"], ["landingPages", "Landing pages"], ["portfolio", "Projetos"],
-      ["career", "Carreira"], ["aiTraining", "IA"],
     ],
+    // Anchors of the homepage header and menu.
+    homeNav: [["#desafio", "Para quem"], ["#como", "Como funciona"], ["#preco", "Preço"], ["#duvidas", "Dúvidas"]],
     cta: "Pedir orçamento",
-    appsLabel: "Apps iOS e Android",
     ctaWhatsApp: "Pedir orçamento no WhatsApp",
     waDefault: "Olá! Vim pelo site da Tetelestai e quero um orçamento.",
-    // Primary goal (Carlos, 28/10): hiring the landing page through WhatsApp (R$ 297 + R$ 97/month since 09/11).
-    ctaLanding: "Landing page R$ 297 + R$ 97/mês",
+    // Primary goal of the homepage (Carlos, 18/11): a free diagnosis through WhatsApp.
+    ctaDiagnosis: "Pedir diagnóstico",
+    ctaDiagnosisShort: "Diagnóstico",
+    ctaDiagnosisLong: "Pedir diagnóstico grátis no WhatsApp",
+    waDiagnosis: "Olá! Quero o diagnóstico de IA e automação.",
+    // Landing page offer (R$ 297 + R$ 97/month since 09/11), kept on the landing page's own page.
+    ctaLanding: "Landing page R$ 297 + R$ 97/mês",
     ctaLandingLong: "Quero minha landing page",
     waLanding: "Olá! Quero a landing page de R$ 297 + R$ 97/mês.",
     floatLabel: "Conversar no WhatsApp",
@@ -31,11 +41,17 @@ export const UI = {
     seeCase: "Ver como foi feito",
     safety: "No primeiro contato, não envie senhas, dados bancários, documentos de identidade, currículos completos ou outras informações sensíveis.",
     footer: {
-      tagline: "Tecnologia com propósito. Oportunidades sem fronteiras.",
-      people: "Carlos Viegas · Gabriela Rosa · Brasília-DF · atendimento online em todo o Brasil",
+      descriptor: "IA e automação · advocacia e cartórios",
+      tagline: "Tecnologia com propósito.",
+      location: "Brasília-DF · atendimento online em todo o Brasil",
       columns: [
-        ["Serviços", [["sites", "Criação de sites"], ["landingPages", "Landing pages"], ["apps", "Apps iOS e Android"], ["portfolio", "Projetos"]], "Automações, sistemas e gerenciamento de marketing digital: sob orçamento, pelo WhatsApp."],
-        ["Outras frentes", [["career", "Carreira internacional em TI"], ["aiTraining", "Capacitação em IA"]]],
+        { title: "Também fazemos", links: [{ label: "Sites e landing pages", key: "landingPages" }, { label: "Projetos entregues", key: "portfolio" }] },
+        { title: "Outros produtos", links: [
+          { label: "Exato Teor", href: "https://exatoteor.com.br/" },
+          { label: "De Rolê", href: DE_ROLE_APP_STORE.url, app: DE_ROLE_APP_STORE.id },
+          { label: "À Mesa", href: "https://amesa.app/" },
+          { label: "Tempo de Recarga", href: APP_STORE_LINKS.button, app: "6815378368" },
+        ] },
       ],
       contact: "Contato",
       company: "Tetelestai Soluções em Tecnologia Ltda. · CNPJ 58.138.258/0001-39",
@@ -59,13 +75,16 @@ export const UI = {
     navLabel: "Primary navigation",
     nav: [
       ["sites", "Websites"], ["landingPages", "Landing pages"], ["portfolio", "Projects"],
-      ["career", "Career"], ["aiTraining", "AI"],
     ],
+    homeNav: [["#desafio", "Who it's for"], ["#como", "How it works"], ["#preco", "Pricing"], ["#duvidas", "FAQ"]],
     cta: "Get a quote",
-    appsLabel: "iOS and Android apps",
     ctaWhatsApp: "Get a quote on WhatsApp",
     waDefault: "Hi! I found Tetelestai's website and I'd like a quote.",
-    ctaLanding: "Landing page R$ 297 + R$ 97/month",
+    ctaDiagnosis: "Request a diagnosis",
+    ctaDiagnosisShort: "Diagnosis",
+    ctaDiagnosisLong: "Request a free diagnosis on WhatsApp",
+    waDiagnosis: "Hello! I'd like the AI and automation diagnosis.",
+    ctaLanding: "Landing page R$ 297 + R$ 97/month",
     ctaLandingLong: "I want my landing page",
     waLanding: "Hi! I'd like the R$ 297 + R$ 97/month landing page.",
     floatLabel: "Chat on WhatsApp",
@@ -77,11 +96,17 @@ export const UI = {
     seeCase: "See how it was made",
     safety: "Do not send passwords, banking details, identity documents, full CVs or other sensitive information in the first contact.",
     footer: {
-      tagline: "Technology with purpose. Opportunities without borders.",
-      people: "Carlos Viegas · Gabriela Rosa · Based in Brasília, working online across Brazil and abroad",
+      descriptor: "AI and automation · law firms and notary offices",
+      tagline: "Technology with purpose.",
+      location: "Based in Brasília, working online across Brazil and abroad",
       columns: [
-        ["Services", [["sites", "Website development"], ["landingPages", "Landing pages"], ["apps", "iOS and Android apps"], ["portfolio", "Projects"]], "Automations, software systems and digital marketing management: quoted per project, over WhatsApp."],
-        ["More from Tetelestai", [["career", "International careers in tech"], ["aiTraining", "AI training"]]],
+        { title: "We also offer", links: [{ label: "Websites and landing pages", key: "landingPages" }, { label: "Delivered projects", key: "portfolio" }] },
+        { title: "Other products", links: [
+          { label: "Exato Teor", href: "https://exatoteor.com.br/" },
+          { label: "De Rolê", href: DE_ROLE_APP_STORE.url, app: DE_ROLE_APP_STORE.id },
+          { label: "À Mesa", href: "https://amesa.app/" },
+          { label: "Tempo de Recarga", href: APP_STORE_LINKS.button, app: "6815378368" },
+        ] },
       ],
       contact: "Contact",
       company: "Tetelestai Soluções em Tecnologia Ltda. · CNPJ 58.138.258/0001-39",
@@ -102,125 +127,233 @@ export const UI = {
 export const HOME = {
   pt: {
     path: "/",
-    metaTitle: "Sites, landing pages e apps para empresas | Tetelestai",
-    metaDescription: "Landing page sob medida por R$ 297 de entrada + R$ 97/mês, no ar em até 2 dias úteis, com SEO, GEO e botão de WhatsApp. Sites, apps, automações, sistemas e gerenciamento de marketing digital sob orçamento.",
-    // Opening chosen by Carlos on 28/10 (option A): the landing page first, quotes second. Price changed on 09/11.
+    metaTitle: "IA e automação para advocacia e cartórios do DF | Tetelestai",
+    metaDescription: "IA e automação para escritórios de advocacia e cartórios do DF: atendimento, agenda e documentos, com o dado dentro da conta do cliente.",
     hero: {
-      eyebrow: "Landing page sob medida · todo o Brasil",
-      title: "Sua landing page no ar em até 2 dias úteis: R$ 297 de entrada + R$ 97/mês",
-      lead: "Oferta, textos, SEO e GEO e botão de WhatsApp, feitos para o seu negócio. O prazo conta a partir do envio dos textos e das fotos. Sites e apps completos sob orçamento.",
-      secondary: "Orçamento de site ou app",
-      secondaryMessage: "Olá! Vim pelo site da Tetelestai e quero um orçamento de site ou app.",
-      trust: ["Hospedagem e 1 atualização por mês", "Domínio .com.br no 1º ano", "{sites} sites de clientes no ar", "{apps} apps na App Store"],
-      trustLabel: "Por que contratar",
-      byline: "Feito por Carlos Viegas, 22 anos de engenharia de software",
-    },
-    proof: { label: "No ar agora", apps: "Na App Store: De Rolê e Tempo de Recarga" },
-    projects: {
-      eyebrow: "Projetos no ar", title: "Veja o que já entregamos",
-      aside: "Abra os sites no seu celular. É assim que o seu cliente vai ver a sua página.",
-      more: "Ver todos os projetos",
-    },
-    price: {
-      eyebrow: "Preço",
-      title: "O preço está aqui. Sem “sob consulta”.",
-      lead: "Você sabe quanto vai pagar e o que vai receber antes de começar. A landing page é a forma mais rápida de ter um endereço para mandar quando o cliente pergunta “como funciona?”.",
-      other: "Precisa de um site com várias páginas, um app iOS ou Android, um sistema, uma automação ou gerenciamento de marketing digital? O orçamento sai depois de uma conversa.",
-      otherLink: "Ver criação de sites",
-      // Exit rule decided by Carlos on 11/11 (Plano 90 dias, "Ofertas vigentes"); on the site since the 13/11 review.
-      exit: {
-        title: "Sem prazo mínimo e sem multa",
-        items: [
-          "Você fica enquanto quiser: não há prazo mínimo de contrato.",
-          "Para cancelar, basta avisar com 30 dias de antecedência. Não há multa.",
-          "Ao fim do aviso, o site sai da nossa hospedagem. O domínio continua seu e você recebe os arquivos do site.",
-        ],
+      eyebrow: "IA e automação · Distrito Federal",
+      title: "IA e automação para escritórios de advocacia e cartórios do DF.",
+      lede: "Atendimento no WhatsApp, agenda e documentos funcionando sem depender de alguém livre para responder. O dado fica na conta do seu escritório ou da sua serventia.",
+      cta: "Pedir diagnóstico grátis no WhatsApp",
+      secondary: "Ver como funciona",
+      note: "De 30 a 45 minutos, por vídeo ou visita. Termina em proposta por escrito.",
+      ficha: {
+        label: "Ilustração: uma mensagem de WhatsApp vira ficha de atendimento conferida",
+        tag: ["Primeiro contato", "terça, 19h42"],
+        message: "Boa noite. Preciso de uma ata notarial de uma conversa de WhatsApp. Como funciona?",
+        messageNote: "Mensagem recebida fora do expediente",
+        title: "Ficha de atendimento",
+        rows: [["Assunto", "Ata notarial"], ["Documentos", "Lista enviada, 2 recebidos"], ["Horário", "Quinta, 10h"], ["Passou para", "Escrevente de plantão"]],
+        foot: "Ilustração do fluxo, sem dados de clientes.",
       },
-      waMessage: "Olá! Quero a landing page de R$ 297 + R$ 97/mês.",
     },
-    how: { eyebrow: "Como funciona", title: "Três passos, do WhatsApp à página no ar" },
-    who: { eyebrow: "Quem faz", title: "Duas pessoas, do primeiro contato à entrega" },
-    fronts: {
-      eyebrow: "A Tetelestai",
-      title: "Três frentes, o mesmo cuidado",
-      aside: "Tecnologia com propósito. Oportunidades sem fronteiras.",
-      items: [
-        { id: "solucoes-digitais", title: "Serviços para pequenas empresas", text: "Sites e landing pages, apps iOS e Android, automações, sistemas e gerenciamento de marketing digital. A landing page tem preço fechado; os demais serviços são feitos sob orçamento.", links: ["sites", "landingPages", "apps"] },
-        { id: "carreira-internacional", title: "Carreira internacional em TI", text: "Frente em reformulação. O guia e o acompanhamento individual saíram de venda.", links: ["career"] },
-        { id: "capacitacao-ia", title: "Capacitação em IA", text: "Treinamento prático de inteligência artificial para equipes e profissionais, sob demanda.", links: ["aiTraining"] },
+    // "{sites}" and "{apps}" are counted from the portfolio data, never typed by hand.
+    factsLabel: "Fatos",
+    facts: [
+      { title: "Exato Teor no ar", text: "Produto próprio: transcrição de conversas de WhatsApp para ata notarial." },
+      { title: "14 anos em banco", text: "Liderança técnica onde sigilo e auditoria são rotina." },
+      { title: "{sites} sites e {apps} apps", text: "Entregues a clientes e publicados na App Store." },
+      { title: "WhatsApp oficial", text: "Só pela API oficial, sem disparo em massa." },
+    ],
+    challenge: {
+      eyebrow: "Para quem", title: "Qual é o seu desafio hoje?", lead: "O trabalho começa pelo que mais toma tempo da sua equipe.",
+      cards: [
+        {
+          title: "Escritório de advocacia",
+          items: [
+            ["O cliente chama à noite e fica sem resposta.", "Um atendimento inicial explica como o escritório funciona, coleta dados e documentos e passa a conversa para o advogado."],
+            ["A agenda vive em mensagens soltas.", "Agendamento pelo WhatsApp e um painel com todos os atendimentos."],
+            ["A equipe redigita o que o cliente já enviou.", "Documentos de rotina preenchidos a partir do que foi coletado, para a equipe conferir."],
+          ],
+          rule: ["Regra da OAB respeitada.", "O agente não responde consulta jurídica e não fala de honorários (Provimento 205/2021)."],
+        },
+        {
+          title: "Cartório",
+          items: [
+            ["O balcão responde as mesmas perguntas o dia todo.", "Um atendimento inicial informa documentos, horários e andamento, e passa o caso para o escrevente."],
+            ["Transcrever conversa para ata notarial toma horas.", "O Exato Teor entrega texto, áudio e mídia organizados para o escrevente conferir."],
+            ["Os atos são marcados por telefone.", "Agendamento pelo WhatsApp e painel do dia para a equipe."],
+          ],
+          rule: ["O cartório não cobra nada em nosso nome.", "As ferramentas ficam na conta da serventia, sob a responsabilidade do titular."],
+        },
       ],
     },
-    faqTitle: { eyebrow: "Dúvidas", title: "Antes de pedir o orçamento" },
+    how: {
+      eyebrow: "Como funciona", title: "Do diagnóstico à operação, em três passos.",
+      steps: [
+        ["Diagnóstico grátis", "De 30 a 45 minutos, por vídeo ou visita. Você mostra como o atendimento acontece hoje e onde ele trava."],
+        ["Proposta por escrito", "Três opções em PDF, com o que entra em cada uma, o preço e o prazo. Sem promessa de resultado."],
+        ["Implantação e acompanhamento", "Colocamos no ar na sua conta. Toda semana uma pessoa revisa as conversas e ajusta o que for preciso."],
+      ],
+    },
+    offer: {
+      eyebrow: "O que entregamos", title: "Quatro frentes. Você escolhe por onde começar.",
+      items: [
+        ["Atendimento inicial no WhatsApp", "Primeiras dúvidas, coleta de dados e documentos, passagem para uma pessoa."],
+        ["Agendamento e painel", "Horários marcados na conversa e a visão do dia para a equipe."],
+        ["Automação de documentos", "O que se repete é preenchido sozinho e conferido por quem assina."],
+        ["Treinamento da equipe", "Para a sua equipe usar IA no trabalho com segurança."],
+      ],
+      price: {
+        eyebrow: "Preço",
+        title: `A partir de R$${NB}2.500 de implantação + R$${NB}500 por mês.`,
+        items: [
+          "Implantação em duas partes: 50% no aceite e 50% na entrega.",
+          "Mínimo de 3 meses de mensalidade. Depois, cancelamento com 30 dias de aviso, sem multa.",
+          "A mensalidade cobre a revisão semanal das conversas, ajustes e suporte.",
+          "A plataforma do agente e a API do WhatsApp ficam na sua conta e são pagas à parte.",
+        ],
+        cta: "Pedir diagnóstico grátis",
+      },
+    },
+    commitments: {
+      eyebrow: "Compromissos", title: "O que vale em todo projeto.",
+      items: [
+        ["WhatsApp só pela API oficial", "Sem aplicativo paralelo e sem disparo em massa. É o caminho que a própria Meta oferece para automatizar o atendimento."],
+        ["Tudo na sua conta", "As ferramentas são contratadas no nome do escritório ou da serventia. Se o contrato acabar, elas continuam suas."],
+        ["Dentro das regras da profissão", "Seguimos o Provimento 205/2021 da OAB e o Código de Normas dos cartórios do DF no que a automação pode e não pode fazer."],
+        ["Uma pessoa revisa toda semana", "A automação atende; uma pessoa lê as conversas, corrige e melhora. Você recebe o que mudou."],
+      ],
+    },
+    who: {
+      eyebrow: "Quem faz", title: "Engenharia de banco, aplicada ao seu atendimento.",
+      cards: [
+        { title: "Quem constrói", text: "A parte técnica é conduzida por um engenheiro de software com 14 anos de liderança técnica em banco. Sigilo, auditoria e operação que não pode parar fazem parte da formação de quem entrega." },
+        { title: "Exato Teor", text: "Produto da TETELESTAI no ar. Transcreve conversas de WhatsApp para ata notarial, com texto, áudio e mídia organizados para conferência.", link: { label: "Conhecer o Exato Teor", href: "https://exatoteor.com.br/" } },
+      ],
+    },
+    faqTitle: { eyebrow: "Dúvidas", title: "Antes de pedir o diagnóstico." },
     faqs: [
-      { q: "Quanto custa uma landing page na Tetelestai?", a: "R$ 297 de entrada, na contratação, e R$ 97 por mês desde o 1º mês. A entrada inclui uma página com até 5 seções, otimizada para SEO e GEO, com oferta e textos pensados para o seu negócio, versão para celular, botão de WhatsApp e uma rodada de ajustes. Depois, a mensalidade de R$ 97 inclui hospedagem, SSL, backup, uma atualização por mês, relatório mensal e SEO local básico, e o domínio .com.br fica incluso nos primeiros 12 meses, registrado no nome da empresa." },
-      { q: "Posso cancelar a mensalidade quando quiser?", a: "Sim. Não há prazo mínimo nem multa: basta avisar com 30 dias de antecedência. Ao fim do aviso, o site sai da hospedagem da Tetelestai. O domínio, que já está registrado no nome da empresa, continua com você, e você recebe os arquivos do site." },
-      { q: "Qual a diferença entre site e landing page?", a: "A landing page é uma página só, focada em uma oferta e em uma ação, como chamar no WhatsApp. O site apresenta a empresa e vários serviços, em mais de uma página, e é feito sob orçamento." },
-      { q: "Em quanto tempo a página fica pronta?", a: "A landing page fica no ar em até 2 dias úteis, contados a partir do envio dos textos e das fotos. O prazo de um site completo ou de um app vem na proposta." },
-      { q: "Preciso ter textos e fotos prontos?", a: "Ajuda juntar o que você já tem. A proposta deixa combinado o que será usado, o que falta preparar e quem cuida de cada parte." },
-      { q: "Vocês atendem em todo o Brasil?", a: "Sim. O atendimento é online, pelo WhatsApp, para negócios de todo o Brasil e de outros países. A Tetelestai fica em Brasília." },
-      { q: "Preciso fazer anúncio para usar a página?", a: "Não. Você pode mandar o link no WhatsApp, colocar na bio do Instagram e divulgar onde quiser." },
+      { q: "Quanto custa?", a: `A partir de R$${NB}2.500 de implantação e R$${NB}500 por mês. O valor do seu caso sai na proposta, depois do diagnóstico, com três opções.` },
+      { q: "Escritório de advocacia pode usar atendimento automático?", a: "Pode, com limites. O Provimento 205/2021 da OAB permite o uso para facilitar a comunicação, responder às primeiras dúvidas e coletar dados e documentos, sem afastar o atendimento pessoal nem a responsabilidade do advogado. O agente é configurado dentro desse limite: não responde consulta jurídica e não fala de honorários." },
+      { q: "Onde ficam os dados dos meus clientes?", a: "Nas contas do seu escritório ou da sua serventia. A plataforma do agente e a API do WhatsApp são contratadas no seu nome; a TETELESTAI acessa só o necessário para implantar e acompanhar." },
+      { q: "Preciso trocar o número do WhatsApp?", a: "Depende de como o número é usado hoje. Isso é visto no diagnóstico, antes de qualquer mudança." },
+      { q: "Em quanto tempo fica pronto?", a: "O prazo depende do que for escolhido e vem escrito na proposta." },
+      { q: "E se eu quiser cancelar?", a: "Há um mínimo de 3 meses de mensalidade. Depois disso, basta avisar com 30 dias de antecedência, sem multa." },
+      { q: "Vocês garantem mais clientes ou mais atos?", a: "Não. O que entregamos é atendimento mais rápido e equipe com menos trabalho repetido. Resultado comercial depende de fatores que não controlamos." },
     ],
-    final: { title: "Vamos colocar o seu negócio na internet?", text: "Conte o que você vende e receba a proposta com preço e prazo." },
+    final: {
+      title: "Peça o diagnóstico e veja o que dá para automatizar.",
+      text: "Em 30 a 45 minutos você sai com o desenho do que muda no seu atendimento, sem compromisso.",
+      cta: "Pedir diagnóstico grátis no WhatsApp",
+      note: "No primeiro contato, não envie senhas, dados bancários, documentos de identidade nem informações de clientes.",
+    },
+    // Visible description of the Service structured data (same sentence as the hero text).
+    serviceName: "IA e automação para escritórios de advocacia e cartórios",
+    serviceArea: "Distrito Federal",
   },
   en: {
     path: "/en/",
-    metaTitle: "Websites, landing pages and apps for businesses | Tetelestai",
-    metaDescription: "A tailored landing page for R$ 297 upfront + R$ 97/month, live in up to 2 business days, with SEO, GEO and a WhatsApp button. Websites, apps, automations, software systems and digital marketing management, quoted per project.",
+    metaTitle: "AI and automation for law firms and notary offices in Brasília | Tetelestai",
+    metaDescription: "AI and automation for law firms and notary offices in the Federal District: customer service, scheduling and documents, with the data kept in the client's own account.",
     hero: {
-      eyebrow: "Tailored landing pages · Brazil and abroad",
-      title: "Your landing page live in up to 2 business days: R$ 297 upfront + R$ 97/month",
-      lead: "Offer, copy, SEO and GEO and a WhatsApp button, made for your business. The timeline starts when you send texts and photos. Full websites and apps are quoted per project.",
-      secondary: "Website or app quote",
-      secondaryMessage: "Hi! I found Tetelestai's website and I'd like a quote for a website or app.",
-      trust: ["Hosting and 1 update a month", ".com.br domain in the first year", "{sites} client websites live", "{apps} apps on the App Store"],
-      trustLabel: "Why hire us",
-      byline: "Built by Carlos Viegas, 22 years in software engineering",
-    },
-    proof: { label: "Live now", apps: "On the App Store: De Rolê and Tempo de Recarga" },
-    projects: {
-      eyebrow: "Live projects", title: "What we've delivered",
-      aside: "Open these sites on your phone. That's how your customers will see your page.",
-      more: "See all projects",
-    },
-    price: {
-      eyebrow: "Pricing",
-      title: "The price is right here. No “contact us for pricing”.",
-      lead: "You know what you'll pay and what you'll get before we start. A landing page is the fastest way to have a link to send when a customer asks “how does it work?”.",
-      other: "Need a multi-page website, an iOS or Android app, a software system, an automation or digital marketing management? We quote it after a quick conversation.",
-      otherLink: "See website development",
-      exit: {
-        title: "No minimum term, no cancellation fee",
-        items: [
-          "Stay as long as you like: there is no minimum contract term.",
-          "To cancel, just give 30 days' notice. There is no fee.",
-          "When the notice ends, the site leaves our hosting. The domain stays yours and you receive the site files.",
-        ],
+      eyebrow: "AI and automation · Federal District",
+      title: "AI and automation for law firms and notary and registry offices in the Federal District.",
+      lede: "WhatsApp customer service, scheduling and documents that keep working without waiting for someone to be free to answer. The data stays in the account of your firm or your notary and registry office.",
+      cta: "Request a free diagnosis on WhatsApp",
+      secondary: "See how it works",
+      note: "30 to 45 minutes, by video or on-site visit. It ends in a written proposal.",
+      ficha: {
+        label: "Illustration: a WhatsApp message becomes a checked service record",
+        tag: ["First contact", "Tuesday, 7:42 pm"],
+        message: "Good evening. I need a notarial record (ata notarial) of a WhatsApp conversation. How does it work?",
+        messageNote: "Message received outside business hours",
+        title: "Service record",
+        rows: [["Subject", "Notarial record"], ["Documents", "List sent, 2 received"], ["Time", "Thursday, 10 am"], ["Handed to", "Clerk on duty"]],
+        foot: "Illustration of the flow, with no client data.",
       },
-      waMessage: "Hi! I'd like the R$ 297 + R$ 97/month landing page.",
     },
-    how: { eyebrow: "How it works", title: "Three steps, from WhatsApp to a live page" },
-    who: { eyebrow: "Who we are", title: "Two people, from first message to delivery" },
-    fronts: {
-      eyebrow: "Tetelestai",
-      title: "Three fronts, the same care",
-      aside: "Technology with purpose. Opportunities without borders.",
-      items: [
-        { id: "digital-solutions", title: "Services for small businesses", text: "Websites and landing pages, iOS and Android apps, automations, software systems and digital marketing management. The landing page has a set price; the other services are quoted per project.", links: ["sites", "landingPages", "apps"] },
-        { id: "international-career", title: "International careers in tech", text: "This front is being reworked. The guide and the one-on-one coaching are no longer on sale.", links: ["career"] },
-        { id: "practical-ai", title: "AI training", text: "Hands-on artificial intelligence training for teams and professionals, on demand.", links: ["aiTraining"] },
+    factsLabel: "Facts",
+    facts: [
+      { title: "Exato Teor is live", text: "Our own product: transcription of WhatsApp conversations for notarial records." },
+      { title: "14 years in banking", text: "Technical leadership where confidentiality and auditing are routine." },
+      { title: "{sites} websites and {apps} apps", text: "Delivered to clients and published on the App Store." },
+      { title: "Official WhatsApp", text: "Only through the official API, with no mass messaging." },
+    ],
+    challenge: {
+      eyebrow: "Who it's for", title: "What is your challenge today?", lead: "The work starts with what takes your team the most time.",
+      cards: [
+        {
+          title: "Law firm",
+          items: [
+            ["The client messages at night and gets no answer.", "A first-contact assistant explains how the firm works, collects data and documents and hands the conversation over to the lawyer."],
+            ["The calendar lives in scattered messages.", "Scheduling over WhatsApp and a dashboard with every appointment."],
+            ["The team retypes what the client already sent.", "Routine documents filled in from what was collected, for the team to check."],
+          ],
+          rule: ["Brazilian Bar Association (OAB) rule respected.", "The agent does not answer legal consultations and does not discuss fees (Provimento 205/2021)."],
+        },
+        {
+          title: "Notary and registry office",
+          items: [
+            ["The counter answers the same questions all day.", "A first-contact assistant gives out documents, opening hours and case status, and hands the case over to the clerk (escrevente)."],
+            ["Transcribing a conversation for a notarial record takes hours.", "Exato Teor delivers text, audio and media organized for the clerk to check."],
+            ["Notarial acts are booked by phone.", "Scheduling over WhatsApp and a daily dashboard for the team."],
+          ],
+          rule: ["The notary office charges nothing in our name.", "The tools stay in the account of the office (serventia), under the responsibility of its titular notary."],
+        },
       ],
     },
-    faqTitle: { eyebrow: "FAQ", title: "Before you ask for a quote" },
+    how: {
+      eyebrow: "How it works", title: "From diagnosis to operation, in three steps.",
+      steps: [
+        ["Free diagnosis", "30 to 45 minutes, by video or on-site visit. You show how service works today and where it gets stuck."],
+        ["Written proposal", "Three options in PDF, with what each one includes, the price and the timeline. No promise of results."],
+        ["Setup and follow-up", "We put it live in your account. Every week a person reviews the conversations and adjusts whatever is needed."],
+      ],
+    },
+    offer: {
+      eyebrow: "What we deliver", title: "Four fronts. You choose where to start.",
+      items: [
+        ["First-contact service on WhatsApp", "First questions, collection of data and documents, handover to a person."],
+        ["Scheduling and dashboard", "Appointments booked in the conversation and the day's view for the team."],
+        ["Document automation", "What repeats is filled in automatically and checked by whoever signs."],
+        ["Team training", "So that your team uses AI at work safely."],
+      ],
+      price: {
+        eyebrow: "Pricing",
+        title: `From R$${NB}2,500 in setup + R$${NB}500 per month.`,
+        items: [
+          "Setup in two parts: 50% on acceptance and 50% on delivery.",
+          "Minimum of 3 months of monthly fees. After that, cancellation with 30 days' notice, with no fee.",
+          "The monthly fee covers the weekly review of conversations, adjustments and support.",
+          "The agent platform and the WhatsApp API stay in your account and are paid separately.",
+        ],
+        cta: "Request a free diagnosis",
+      },
+    },
+    commitments: {
+      eyebrow: "Commitments", title: "What holds for every project.",
+      items: [
+        ["WhatsApp only through the official API", "No parallel app and no mass messaging. It is the path Meta itself offers to automate customer service."],
+        ["Everything in your account", "The tools are contracted in the name of the firm or the notary and registry office. If the contract ends, they stay yours."],
+        ["Within the rules of the profession", "We follow the Brazilian Bar Association's (OAB) Provimento 205/2021 and the Federal District notary offices' Code of Norms on what automation can and cannot do."],
+        ["A person reviews it every week", "The automation answers; a person reads the conversations, corrects and improves. You receive what changed."],
+      ],
+    },
+    who: {
+      eyebrow: "Who does it", title: "Banking engineering, applied to your customer service.",
+      cards: [
+        { title: "Who builds it", text: "The technical side is led by a software engineer with 14 years of technical leadership in banking. Confidentiality, auditing and operations that cannot stop are part of the background of whoever delivers." },
+        { title: "Exato Teor", text: "A TETELESTAI product that is live. It transcribes WhatsApp conversations for notarial records, with text, audio and media organized for checking.", link: { label: "Learn about Exato Teor", href: "https://exatoteor.com.br/" } },
+      ],
+    },
+    faqTitle: { eyebrow: "FAQ", title: "Before you request the diagnosis." },
     faqs: [
-      { q: "How much does a landing page cost?", a: "R$ 297 upfront when you hire us, then R$ 97 a month from the first month. The upfront payment includes one page with up to 5 sections, optimized for SEO and GEO, with an offer and copy written for your business, a mobile version, a WhatsApp button and one round of revisions. After that, the R$ 97 monthly fee covers hosting, SSL, backups, one update a month, a monthly report and basic local SEO, and the .com.br domain is included for the first 12 months, registered in the client's name." },
-      { q: "Can I cancel the monthly fee whenever I want?", a: "Yes. There is no minimum term and no cancellation fee: just give 30 days' notice. When the notice ends, the site leaves Tetelestai's hosting. The domain, already registered in the client's name, stays with you, and you receive the site files." },
-      { q: "What's the difference between a website and a landing page?", a: "A landing page is a single page focused on one offer and one action, such as messaging you on WhatsApp. A website presents the business and several services across multiple pages, and is quoted per project." },
-      { q: "How long does it take?", a: "A landing page goes live in up to 2 business days after you send the texts and photos. The timeline for a full website or an app comes in the proposal." },
-      { q: "Do I need texts and photos ready?", a: "It helps to gather what you have. The proposal states what will be used, what still needs preparing and who handles each part." },
-      { q: "Do you work with clients across Brazil?", a: "Yes. We work online, over WhatsApp, with businesses across Brazil and abroad. Tetelestai is based in Brasília." },
-      { q: "Do I need to run ads?", a: "No. You can share the link on WhatsApp, add it to your Instagram bio and post it wherever you like." },
+      { q: "How much does it cost?", a: `From R$${NB}2,500 in setup and R$${NB}500 per month. The amount for your case comes in the proposal, after the diagnosis, with three options.` },
+      { q: "Can a law firm use automated customer service?", a: "Yes, within limits. The Brazilian Bar Association's (OAB) Provimento 205/2021 allows its use to ease communication, answer first questions and collect data and documents, without replacing personal service or the lawyer's responsibility. The agent is set up within that limit: it does not answer legal consultations and does not discuss fees." },
+      { q: "Where is my clients' data kept?", a: "In the accounts of your firm or your notary and registry office. The agent platform and the WhatsApp API are contracted in your name; TETELESTAI accesses only what is needed to set up and follow up." },
+      { q: "Do I need to change my WhatsApp number?", a: "It depends on how the number is used today. That is looked at in the diagnosis, before any change." },
+      { q: "How long does it take?", a: "The timeline depends on what you choose and is written in the proposal." },
+      { q: "What if I want to cancel?", a: "There is a minimum of 3 months of monthly fees. After that, just give 30 days' notice, with no fee." },
+      { q: "Do you guarantee more clients or more notarial acts?", a: "No. What we deliver is faster service and a team with less repetitive work. Commercial results depend on factors we do not control." },
     ],
-    final: { title: "Ready to put your business online?", text: "Tell us what you sell and get a proposal with price and timeline." },
+    final: {
+      title: "Request the diagnosis and see what can be automated.",
+      text: "In 30 to 45 minutes you leave with an outline of what changes in your customer service, with no commitment.",
+      cta: "Request a free diagnosis on WhatsApp",
+      note: "In the first contact, do not send passwords, banking details, identity documents or client information.",
+    },
+    serviceName: "AI and automation for law firms and notary offices",
+    serviceArea: "Distrito Federal",
   },
 };
 
@@ -237,32 +370,6 @@ export const HOW_STEPS = {
     { k: "Step 3", title: "Your page goes live", text: "You send texts and photos, review a preview, ask for changes and the page goes live. The R$ 97 monthly fee covers hosting, backups and one update a month." },
   ],
 };
-
-export const PEOPLE = {
-  pt: [
-    { initials: "CV", name: "Carlos Viegas", role: "Co-Founder & CTO", bio: "22 anos de engenharia de software, 14 deles como líder técnico no Banco do Brasil. Cuida da parte técnica de cada projeto." },
-    { initials: "GR", name: "Gabriela Rosa", role: "Co-Founder & CEO", bio: "Co-fundadora e administradora da Tetelestai. Lidera o negócio, o marketing e o relacionamento com clientes." },
-  ],
-  en: [
-    { initials: "CV", name: "Carlos Viegas", role: "Co-Founder & CTO", bio: "22 years in software engineering, 14 of them as a tech lead at Banco do Brasil. Leads the technical side of every project." },
-    { initials: "GR", name: "Gabriela Rosa", role: "Co-Founder & CEO", bio: "Co-founder and Tetelestai’s managing partner. Leads the business, marketing and client relations." },
-  ],
-};
-
-// Profile links under each person in "Quem faz". An empty address renders nothing: the site never shows a
-// placeholder or a guessed profile. Carlos (13/11): his LinkedIn now, carlosviegas.dev once it is live; no GitHub.
-// LinkedIn address sent by Carlos on 13/11; carlosSite stays empty until that page is live.
-export const PROFILES = { carlosLinkedIn: "https://www.linkedin.com/in/carloshsrosa/", carlosSite: "" };
-const PROFILE_LINKS = {
-  pt: { CV: [["carlosLinkedIn", "Carlos no LinkedIn"], ["carlosSite", "Página pessoal de Carlos"]] },
-  en: { CV: [["carlosLinkedIn", "Carlos on LinkedIn"], ["carlosSite", "Carlos's personal page"]] },
-};
-export function peopleFor(locale, profiles = PROFILES) {
-  return PEOPLE[locale].map(person => ({
-    ...person,
-    links: (PROFILE_LINKS[locale][person.initials] ?? []).filter(([key]) => profiles[key]).map(([key, label]) => ({ href: profiles[key], label })),
-  }));
-}
 
 export const LANDING_RECEIPT = {
   pt: {

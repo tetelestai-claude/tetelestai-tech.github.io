@@ -10,8 +10,6 @@ import { measurementPath } from '../src/analytics.mjs';
 export const pairs = [
   ['/criacao-de-sites/','/en/website-development/'],
   ['/criacao-de-landing-pages/','/en/landing-pages/'],
-  ['/carreira-internacional/','/en/international-career/'],
-  ['/capacitacao-em-ia/','/en/ai-training/'],
   ['/projetos/','/en/projects/'],
   ['/projetos/infinity-car-studio/','/en/projects/infinity-car-studio/'],
   ['/projetos/bolachinhas-da-vovo-juju/','/en/projects/bolachinhas-da-vovo-juju/'],
@@ -21,13 +19,15 @@ export const pairs = [
 ];
 
 
-test('English home restores service shortcuts and every translated page preserves locale and equivalent selector', async () => {
+test('English home links the English landing page and projects in its footer and every translated page preserves locale and equivalent selector', async () => {
   const server=await createServer({appType:'custom',server:{middlewareMode:true,hmr:false,ws:false,watch:null},optimizeDeps:{noDiscovery:true,include:[]}});
   try {
     const {App}=await server.ssrLoadModule('/src/App.jsx');
     const render=path=>renderToStaticMarkup(createElement(App,{pathname:path}));
     const home=render('/en/');
-    for (const [,en] of pairs) assert.ok(home.includes(`href="${en}"`),`Missing English shortcut ${en}`);
+    // Since 18/11 the homepage links only the landing page and the projects (footer); the other pages stay reachable from them.
+    for (const en of ['/en/landing-pages/','/en/projects/']) assert.ok(home.includes(`href="${en}"`),`Missing English footer link ${en}`);
+    assert.ok(!/href="\/(?:criacao|projetos|carreira|capacitacao)/.test(home.replace(/href="\/" lang="pt-BR"/g,'')),'The English home links no Portuguese commercial page');
     for (const [pt,en] of pairs) {
       const english=render(en), portuguese=render(pt);
       assert.ok(!english.includes('This address does not exist'),en);

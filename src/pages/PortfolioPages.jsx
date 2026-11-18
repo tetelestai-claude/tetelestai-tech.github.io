@@ -1,7 +1,6 @@
 import { getAnalytics } from "../analytics.mjs";
 import { APP_STORE_LINKS, DE_ROLE_APP_STORE } from "../app-store-links.mjs";
 import { UI } from "../home-content.mjs";
-import { INSTAGRAM_CONTENTS } from "../instagram-content.mjs";
 import { portfolioFor } from "../localized-content.mjs";
 import { APPS, CASE_COPY, CLIENT_PROJECTS } from "../portfolio-content.mjs";
 import { PageShell, pathFor } from "../Layout.jsx";
@@ -48,43 +47,6 @@ function AppCard({ app, locale, storeHref, qrHref }) {
         ))}
       </div>
     </article>
-  );
-}
-
-const INSTAGRAM_PROFILE_URL = "https://www.instagram.com/ia.napratica.negocios/";
-const INSTAGRAM_PROFILE_HANDLE = "@ia.napratica.negocios";
-
-function InstagramSection({ locale, copy }) {
-  const en = locale === "en";
-  if (INSTAGRAM_CONTENTS.length === 0) return null;
-  return (
-    <section className="section light" id="instagram" aria-labelledby="instagram-title">
-      <div className="wrap">
-        <SectionHead eyebrow={copy.eyebrow} title={copy.title} aside={copy.aside} id="instagram-title" />
-        <div className="reels" data-reveal-group="">
-          {INSTAGRAM_CONTENTS.map(item => (
-            <article className="reel" key={item.id} aria-labelledby={`reel-${item.id}`} data-reveal="">
-              <a className="reel__cover" href={item.url} target="_blank" rel="noopener noreferrer" aria-label={`${en ? "Watch on Instagram" : "Assistir no Instagram"}: ${en ? item.titleEn : item.title}`}>
-                {item.image
-                  ? <img src={item.image} width="941" height="1672" loading="lazy" decoding="async" alt={en ? "Authorized original cover: Your business online, with a virtual presenter, TETELESTAI branding and the @tetelestai.tech profile." : "Capa autoral: Sua empresa no digital, com apresentador virtual, identidade TETELESTAI e perfil @tetelestai.tech."} />
-                  : <span className="reel__art" aria-hidden="true">
-                      <span className="brand__name">TETELESTAI</span>
-                      <span className="reel__title">{(en ? item.coverLinesEn : item.coverLines).map(line => <span key={line}>{line}</span>)}</span>
-                      <span className="reel__foot">{en ? "REMIX ON INSTAGRAM" : "REMIX NO INSTAGRAM"}</span>
-                    </span>}
-              </a>
-              <p className="case__meta">{item.image ? (en ? "Original · AI content" : "Autoral · Conteúdo de IA") : (en ? "Remix on Instagram" : "Remix no Instagram")}</p>
-              <h3 className="h3" id={`reel-${item.id}`}>{en ? item.titleEn : item.title}</h3>
-              <p className="muted">{en ? item.descriptionEn : item.description}</p>
-              <p className="reel__credit">{item.credit
-                ? <>{en ? "Original audio: " : "Áudio original: "}<a href={item.audio} target="_blank" rel="noopener noreferrer">@{item.credit}</a></>
-                : <>{en ? "Produced by TETELESTAI · " : "Produção TETELESTAI · "}<a href={INSTAGRAM_PROFILE_URL} target="_blank" rel="noopener noreferrer">{INSTAGRAM_PROFILE_HANDLE}</a></>}</p>
-            </article>
-          ))}
-        </div>
-        <p className="more" data-reveal=""><LinkArrow href={INSTAGRAM_PROFILE_URL} className="link link--arrow link--teal" icon="out" external>{copy.more}</LinkArrow></p>
-      </div>
-    </section>
   );
 }
 
@@ -146,8 +108,6 @@ export function PortfolioIndex({ locale }) {
           </div>
         </div>
       </section>
-
-      <InstagramSection locale={locale} copy={page.instagram} />
 
       <CtaFinal title={page.final.title} text={page.final.text} note={t.safety}>
         <WhatsAppLink message={t.waDefault}>{t.ctaWhatsApp}</WhatsAppLink>

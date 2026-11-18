@@ -32,18 +32,20 @@ test('portfolio and case pages expose verified deliveries, real links and naviga
     assert.ok(englishPortfolio.includes('Team word game'));
     assert.ok(englishPortfolio.includes('href="https://apps.apple.com/br/app/id6820150552"'));
     assert.ok(!/Projetos próprios|Projeto próprio|TestFlight|aguardando revisão|Site Tetelestai/.test(portfolio));
-    for (const path of ['/', '/en/', ...routes, '/criacao-de-sites/']) {
-      assert.ok(render(path).includes(`href="${path==='/en/'?'/en/projects/':'/projetos/'}"`), `${path} must expose portfolio navigation`);
+    // The homepage (18/11) has anchor navigation; its footer links the portfolio. Every other page keeps the Projects link in its header.
+    for (const path of ['/', '/en/']) {
+      const footer = render(path).match(/<footer[\s\S]*?<\/footer>/)?.[0];
+      assert.ok(footer.includes(`href="${path==='/en/'?'/en/projects/':'/projetos/'}"`), `${path} must expose portfolio navigation in the footer`);
+    }
+    for (const path of [...routes, '/criacao-de-sites/']) {
+      assert.ok(render(path).includes(`href="${'/projetos/'}"`), `${path} must expose portfolio navigation`);
       const header = render(path).match(/<header[\s\S]*?<\/header>/)?.[0];
-      assert.ok(header.includes(`href="${path === '/en/' ? '/en/projects/' : '/projetos/'}"`), 'Projects navigation must lead to the portfolio page');
+      assert.ok(header.includes(`href="${'/projetos/'}"`), 'Projects navigation must lead to the portfolio page');
     }
     for (const [path, name] of [['/criacao-de-sites/','Infinity Car Studio'],['/criacao-de-landing-pages/','Respeitável Feijuca']]) {
       const html=render(path);
       assert.ok(html.indexOf(name) > -1 && html.indexOf(name) < html.indexOf('class="faq-section'), `${path}: a real client project appears before the FAQ`);
       assert.ok(html.indexOf('id="projects"') < html.indexOf('class="faq-section'));
-    }
-    for (const path of ['/carreira-internacional/','/capacitacao-em-ia/']) {
-      assert.ok(!render(path).includes('Infinity Car Studio'), 'digital cases must not imply career/training outcomes');
     }
     assert.ok(render(routes[1]).includes('href="https://infinitycarstudio.com.br/"'));
     const juju=render(routes[2]);
@@ -62,15 +64,13 @@ test('portfolio and case pages expose verified deliveries, real links and naviga
     assert.ok(feijuca.includes('/assets/portfolio/feijuca-desktop.webp'));
     assert.ok(feijuca.includes('href="/projetos/infinity-car-studio/"'), 'Feijuca points to the next project');
     assert.ok(!/wa\.me\/5561992559210/.test(feijuca), "the client's WhatsApp stays on the client's site");
-    const home=render('/');
-    assert.ok(home.indexOf('case case--featured') > -1 && home.indexOf('case case--featured') < home.indexOf('>Infinity Car Studio</a>'), 'Feijuca is the featured first card on the home');
     const order = ['Respeitável Feijuca','Infinity Car Studio','LaLeLis','Afeto Nobre','Bolachinhas da Vovó Juju'].map(name => portfolio.indexOf(`>${name}</a>`));
     assert.ok(order.every(i => i > -1), 'every client case is listed');
     assert.deepEqual([...order].sort((x,y)=>x-y), order, 'portfolio order chosen on 2026-10-28');
     assert.ok(!/wa\.me\/556192505727/.test(afeto+lalelis), "client WhatsApp numbers stay on the clients' own sites");
     assert.ok(!/aumentou.{0,30}(vendas|conversão)/i.test(portfolio));
     // Scroll preview (2026-10-28): every frame names its whole-page capture, which never loads with the page.
-    for (const html of [portfolio, feijuca, home, render('/criacao-de-landing-pages/'), render('/criacao-de-sites/')]) {
+    for (const html of [portfolio, feijuca, render('/criacao-de-landing-pages/'), render('/criacao-de-sites/')]) {
       const fulls = html.match(/data-full="[^"]+"/g) ?? [];
       assert.ok(fulls.length > 0, 'the frames offer the whole page');
       assert.ok(fulls.every(attr => /-(desktop|mobile)-full\.webp"$/.test(attr)));
@@ -79,7 +79,7 @@ test('portfolio and case pages expose verified deliveries, real links and naviga
     assert.equal((portfolio.match(/<article class="split case-row"[^>]*data-shot-zone/g) ?? []).length, 5, 'each portfolio row is one hover zone');
     assert.ok(feijuca.includes('data-full="/assets/portfolio/feijuca-mobile-full.webp"'), 'the phone frame scrolls too');
     assert.ok(feijuca.includes('data-video="/assets/portfolio/feijuca-desktop.mp4"') && feijuca.includes('data-video-webm="/assets/portfolio/feijuca-mobile.webm"'), 'Feijuca frames play the recording of the site');
-    assert.ok(!/<video[^>]+src="\/assets\/portfolio\//.test(home + portfolio + feijuca), 'the recordings are not in the initial HTML');
+    assert.ok(!/<video[^>]+src="\/assets\/portfolio\//.test(portfolio + feijuca), 'the recordings are not in the initial HTML');
   } finally { await renderer.close(); }
 });
 

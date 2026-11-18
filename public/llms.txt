@@ -1,18 +1,23 @@
 # Tetelestai
 
-> Tetelestai (Tetelestai Soluções em Tecnologia Ltda., CNPJ 58.138.258/0001-39) is a small technology studio based in Brasília, Brazil, that works online with clients across Brazil and abroad. It serves small businesses with websites and landing pages, iOS/Android apps, automations, software systems and digital marketing management, publishes its own iOS apps, and runs on-demand AI training. Contact is through WhatsApp (+55 61 98471-1930) or contato@tetelestai.tech.
+> Tetelestai (Tetelestai Soluções em Tecnologia Ltda., CNPJ 58.138.258/0001-39) offers AI and automation for law firms and notary and registry offices (cartórios) in the Federal District, Brazil: WhatsApp customer service, scheduling and documents, with the data kept in the client's own account. It is based in Brasília and works online across Brazil. It also builds websites and landing pages, publishes its own iOS apps and runs Exato Teor, a product that transcribes WhatsApp conversations for notarial records. Contact is through WhatsApp (+55 61 98471-1930) or contato@tetelestai.tech.
 
 ## Key facts
 
-- Landing page: R$ 297 upfront when hiring, plus R$ 97 a month from the first month (since 9 November 2026). One page with up to 5 sections, an offer and copy written for the business, SEO and GEO optimization, mobile version, WhatsApp button and one round of revisions. Live in up to 2 business days after the client sends texts and photos. The R$ 97 monthly fee covers hosting, SSL, backups, one update a month, a monthly report and basic local SEO; the .com.br domain is included for the first 12 months, registered in the business's name. There is no minimum term: the client can cancel with 30 days' notice and no fee; when the notice ends the site leaves Tetelestai's hosting, the domain stays with the client and the site files are handed over.
+- The first step is a free diagnosis: 30 to 45 minutes, by video or on-site visit, ending in a written proposal with three options (what each includes, price and timeline). No promise of results.
+- Four fronts, chosen by the client: first-contact service on WhatsApp, scheduling and a dashboard, document automation, and team training in AI.
+- Price: from R$ 2,500 in setup plus R$ 500 a month. Setup is paid in two parts, 50% on acceptance and 50% on delivery. The monthly fee covers the weekly review of the conversations by a person, adjustments and support. Minimum of 3 months of monthly fees; after that, cancellation with 30 days' notice and no fee. The agent platform and the WhatsApp API stay in the client's account and are paid separately.
+- WhatsApp is automated only through the official WhatsApp API, with no mass messaging. The tools are contracted in the name of the firm or the notary office, so they stay with the client if the contract ends.
+- For law firms, the agent follows the Brazilian Bar Association (OAB) Provimento 205/2021: it answers first questions and collects data and documents, does not answer legal consultations and does not discuss fees. For notary offices, the tools stay in the office's account under the responsibility of its titular notary and follow the Federal District notary offices' Code of Norms.
+- The technical side is led by a software engineer with 14 years of technical leadership in banking. Tetelestai has delivered 5 client websites and published 2 iOS apps on the App Store.
+- Tetelestai does not guarantee more clients or more notarial acts: it delivers faster service and a team with less repetitive work.
+- Websites and landing pages remain available on their own pages. Landing page: R$ 297 upfront when hiring, plus R$ 97 a month from the first month. One page with up to 5 sections, an offer and copy written for the business, SEO and GEO optimization, mobile version, WhatsApp button and one round of revisions, live in up to 2 business days after the client sends texts and photos. The R$ 97 monthly fee covers hosting, SSL, backups, one update a month, a monthly report and basic local SEO; the .com.br domain is included for the first 12 months, registered in the business's name. There is no minimum term on the landing page: the client can cancel with 30 days' notice and no fee; when the notice ends the site leaves Tetelestai's hosting, the domain stays with the client and the site files are handed over.
 - Multi-page websites, iOS and Android apps, software systems, automations and digital marketing management are quoted in writing after a conversation; they have no published price.
-- Founders: Carlos Viegas (Co-Founder & CTO; software engineer for more than 22 years, 14 of them as a tech lead at Banco do Brasil) and Gabriela Rosa (Co-Founder & CEO).
-- Service is delivered online, in Portuguese or English, to clients across Brazil and abroad.
-- The career front and AI training do not guarantee interviews, hiring, salaries or visas, and do not include immigration legal advice.
+- Service is delivered online, in Portuguese or English.
 
 ## Pages (Portuguese)
 
-- [Home](https://tetelestai.tech/): websites, landing pages and apps for businesses of any size across Brazil
+- [Home](https://tetelestai.tech/): AI and automation for law firms and notary offices in the Federal District, with a free diagnosis
 - [Criação de sites](https://tetelestai.tech/criacao-de-sites/): multi-page business websites, quoted per project
 - [Criação de landing pages](https://tetelestai.tech/criacao-de-landing-pages/): the landing page offer (R$ 297 + R$ 97/month)
 - [Projetos](https://tetelestai.tech/projetos/): client websites and the De Rolê and Tempo de Recarga iOS apps
@@ -21,8 +26,6 @@
 - [Bolachinhas da Vovó Juju](https://tetelestai.tech/projetos/bolachinhas-da-vovo-juju/): artisan food landing page case study
 - [Afeto Nobre](https://tetelestai.tech/projetos/afeto-nobre/): handmade sweets and cakes landing page case study (Guará, Brasília), with WhatsApp quotes
 - [LaLeLis](https://tetelestai.tech/projetos/lalelis/): custom party stationery landing page case study (Federal District), with an interactive quote list sent through WhatsApp
-- [Carreira internacional em TI](https://tetelestai.tech/carreira-internacional/): this front is being reworked; the earlier guide and one-on-one coaching went off sale in November 2026 and nothing is sold on this page
-- [Capacitação em IA](https://tetelestai.tech/capacitacao-em-ia/): on-demand AI training for teams and professionals
 
 ## Pages (English)
 
@@ -30,8 +33,12 @@
 - [Website development](https://tetelestai.tech/en/website-development/)
 - [Landing pages](https://tetelestai.tech/en/landing-pages/)
 - [Projects](https://tetelestai.tech/en/projects/)
-- [International careers in tech](https://tetelestai.tech/en/international-career/)
-- [AI training](https://tetelestai.tech/en/ai-training/)
+
+## Other products
+
+- [Exato Teor](https://exatoteor.com.br/): transcription of WhatsApp conversations for notarial records
+- [À Mesa](https://amesa.app/)
+- [De Rolê](https://apps.apple.com/br/app/id6820150552) and [Tempo de Recarga](https://apps.apple.com/br/app/id6815378368) on the App Store
 
 ## Policies
 

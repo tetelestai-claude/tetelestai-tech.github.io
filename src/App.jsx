@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import "@fontsource/michroma/400.css";
 import "@fontsource-variable/inter/opsz.css";
+import "@fontsource-variable/newsreader/wght.css";
 import { LEGAL_CONTENT, LEGAL_PATHS } from "./legal-content.mjs";
 import { RECARGA_PAGES } from "./recarga-content.mjs";
 import { DE_ROLE_PAGES } from "./de-role-content.mjs";
@@ -14,7 +15,7 @@ import { createReveal } from "./reveal-kit.mjs";
 import { createCircuitMotion } from "./circuit-motion.mjs";
 import { createScrollShots } from "./scroll-shots.mjs";
 import { HomePage } from "./pages/HomePage.jsx";
-import { AiPage, CareerPage, LandingPage, SitesPage } from "./pages/ServicePages.jsx";
+import { LandingPage, SitesPage } from "./pages/ServicePages.jsx";
 import { CasePage, PortfolioIndex } from "./pages/PortfolioPages.jsx";
 import { DeRolePage, LegalPage, NotFoundPage, RecargaPage } from "./pages/DocumentPages.jsx";
 
@@ -50,7 +51,7 @@ function resolveRoute(pathname) {
   return { locale: normalizedPath.startsWith("/en/") ? "en" : "pt", page: "notFound" };
 }
 
-const SERVICE_VIEWS = { sites: SitesPage, landingPages: LandingPage, career: CareerPage, aiTraining: AiPage };
+const SERVICE_VIEWS = { sites: SitesPage, landingPages: LandingPage };
 
 function PageView({ locale, page }) {
   if (DE_ROLE_PAGES[page]) return <DeRolePage page={page} />;
