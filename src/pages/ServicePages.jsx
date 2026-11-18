@@ -2,7 +2,7 @@ import { HOW_STEPS, LANDING_RECEIPT, UI } from "../home-content.mjs";
 import { portfolioFor, servicesFor } from "../localized-content.mjs";
 import { PageShell, pathFor } from "../Layout.jsx";
 import {
-  Browser, CardGrid, Circuits, Crumbs, CtaFinal, DevicePair, Facts, FaqSection, LinkArrow,
+  Browser, CardGrid, Crumbs, CtaFinal, DevicePair, Facts, FaqSection, LinkArrow,
   Phone, Receipt, SectionHead, Steps, WhatsAppLink,
 } from "../ui.jsx";
 
@@ -10,7 +10,6 @@ function ServiceHero({ locale, service, actions, media, headingClass = "h1 h1--m
   const t = UI[locale];
   return (
     <section id="home" className="hero hero--page dark" aria-labelledby="service-title">
-      <Circuits />
       <div className="wrap hero__in">
         <div className="hero__text">
           <Crumbs label={t.breadcrumbLabel} items={[{ label: t.homeLabel, href: pathFor("home", locale) }, { label: service.label }]} />
@@ -65,12 +64,12 @@ export function SitesPage({ locale }) {
         </div>
       </section>
 
-      <section className="section dark" id="projects" aria-labelledby="projects-title">
+      <section className="section light section--alt" id="projects" aria-labelledby="projects-title">
         <div className="wrap split">
           <div className="stack" data-reveal="">
             <p className="eyebrow">{service.caseStudy.eyebrow}</p>
             <h2 className="h2" id="projects-title">{service.caseStudy.title}</h2>
-            <div className="card card--glass"><ul>{service.caseStudy.items.map(item => <li key={item}>{item}</li>)}</ul></div>
+            <div className="card"><ul>{service.caseStudy.items.map(item => <li key={item}>{item}</li>)}</ul></div>
             <div className="btn-row">
               <LinkArrow href={project.path}>{t.seeCase}</LinkArrow>
               <LinkArrow href={project.url} icon="out" external>{t.visitSite}</LinkArrow>
@@ -115,10 +114,10 @@ export function LandingPage({ locale }) {
         </div>
       </section>
 
-      <section className="section dark" aria-labelledby="anatomy-title">
+      <section className="section light section--alt" aria-labelledby="anatomy-title">
         <div className="wrap">
           <SectionHead eyebrow={service.anatomy.eyebrow} title={service.anatomy.title} aside={service.anatomy.aside} id="anatomy-title" />
-          <Steps items={service.anatomy.items} glass />
+          <Steps items={service.anatomy.items} />
         </div>
       </section>
 

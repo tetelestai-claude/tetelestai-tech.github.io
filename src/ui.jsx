@@ -69,28 +69,6 @@ export function SymbolPicture({ sizes, width = 72, height = 72, className, alt =
   );
 }
 
-// Circuit traces behind every hero. Five pulses travel once on load and stop.
-const TRACES = [
-  "M1440 92 H1210 L1168 134 H1010", "M1440 196 H1340 L1300 236 V300", "M1440 300 H1390 L1350 340 V470 L1320 500",
-  "M1440 430 H1404 L1384 450 V560", "M1440 610 H1340 L1300 650 H1120 L1090 680", "M1440 720 H1180 L1140 760 H900",
-  "M1230 0 V40 L1190 80 H1060", "M960 0 V30 L930 60 H820", "M0 700 H70 L110 740 H260", "M0 140 H60 L100 100 H150",
-  "M820 780 V740 L780 700 H700",
-];
-const PULSES = [0, 2, 1, 4, 5];
-const NODES = [[1010, 134], [1300, 300], [1320, 500], [1384, 560], [1090, 680], [900, 760], [1060, 80], [820, 60], [260, 740], [150, 100], [700, 700]];
-export function Circuits() {
-  return <>
-    <div className="hero__bg" aria-hidden="true">
-      <svg viewBox="0 0 1440 780" preserveAspectRatio="xMidYMid slice" focusable="false">
-        {TRACES.map(d => <path className="trace" d={d} key={d} />)}
-        {NODES.map(([x, y]) => <circle className="node" cx={x} cy={y} r="4.5" key={`${x}-${y}`} />)}
-        {PULSES.map((index, order) => <path className={`pulse p${order + 1}`} pathLength="100" d={TRACES[index]} key={`p${order}`} />)}
-      </svg>
-    </div>
-    <div className="hero__glow" aria-hidden="true" />
-  </>;
-}
-
 /* ---------- Frames ---------- */
 // The frame shows the first screen of the site (`src`). `video`/`videoWebm` are the site recorded while scrolled
 // (its own videos and effects playing); `full` is the whole page as a still. src/scroll-shots.mjs downloads them only
@@ -148,11 +126,11 @@ export function Facts({ items }) {
   return <dl className="facts" data-reveal="" style={{ "--facts-cols": factsColumns(items.length) }}>{items.map(([term, value]) => <div key={term}><dt>{term}</dt><dd>{value}</dd></div>)}</dl>;
 }
 
-export function CardGrid({ items, columns = 3, glass = false }) {
+export function CardGrid({ items, columns = 3 }) {
   return (
     <div className={`grid grid--${columns}`} data-reveal-group="">
       {items.map(item => (
-        <div className={glass ? "card card--glass" : "card"} data-reveal="" key={item.title}>
+        <div className="card" data-reveal="" key={item.title}>
           {item.k && <span className="card__k">{item.k}</span>}
           <h3 className="h3">{item.title}</h3>
           <p>{item.text}</p>
@@ -162,13 +140,13 @@ export function CardGrid({ items, columns = 3, glass = false }) {
   );
 }
 
-// Steps: on hover the card tints and lifts like the other cards; no cyan bar beside it (removed on 25/10).
-export function Steps({ items, glass = false }) {
+// Steps: on hover the card tints and lifts like the other cards; no bar beside it (removed on 25/10).
+export function Steps({ items }) {
   return (
     <ol className="steps" data-reveal-group="">
       {items.map((item, index) => (
         <li data-reveal="" key={item.title}>
-          <div className={glass ? "card card--glass" : "card"}>
+          <div className="card">
             <span className="card__k">{item.k ?? String(index + 1).padStart(2, "0")}</span>
             <h3 className="h3">{item.title}</h3>
             <p>{item.text}</p>
@@ -181,7 +159,7 @@ export function Steps({ items, glass = false }) {
 
 export function FaqSection({ eyebrow, title, items, id = "faq" }) {
   return (
-    <section className="faq-section section light" id={id} aria-labelledby={`${id}-title`}>
+    <section className="faq-section section light section--alt" id={id} aria-labelledby={`${id}-title`}>
       <div className="wrap faq-wrap">
         <div className="stack" data-reveal=""><p className="eyebrow">{eyebrow}</p><h2 className="h2" id={`${id}-title`}>{title}</h2></div>
         <div className="faq" data-reveal="">
@@ -223,19 +201,11 @@ export function Receipt({ data, message }) {
   );
 }
 
-// Closing call to action over the original circuit artwork and protected symbol.
+// Closing call to action (navy, like the homepage final call; the circuit artwork was removed on 18/11).
 export function CtaFinal({ title, text, note, children }) {
   return (
     <section className="cta-final dark" aria-labelledby="cta-final-title">
       <div className="wrap cta-final__in">
-        <div className="circuit-visual" aria-hidden="true">
-          <picture>
-            <source type="image/webp" srcSet="/assets/circuit-network.webp" />
-            <img src="/assets/circuit-network.png" width="836" height="471" alt="" loading="lazy" decoding="async" />
-          </picture>
-          <span className="circuit-visual__signal" />
-          <span className="circuit-visual__symbol"><SymbolPicture sizes="(max-width: 620px) 120px, 190px" width={190} height={190} loading="lazy" /></span>
-        </div>
         <div className="cta-final__text" data-reveal="">
           <h2 className="h2" id="cta-final-title">{title}</h2>
           <p className="lead">{text}</p>

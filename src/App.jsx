@@ -12,7 +12,6 @@ import { HOME, UI } from "./home-content.mjs";
 import { pageStructuredData, serializeStructuredData } from "./structured-data.mjs";
 import { AnalyticsConsent } from "./AnalyticsConsent.jsx";
 import { createReveal } from "./reveal-kit.mjs";
-import { createCircuitMotion } from "./circuit-motion.mjs";
 import { createScrollShots } from "./scroll-shots.mjs";
 import { HomePage } from "./pages/HomePage.jsx";
 import { LandingPage, SitesPage } from "./pages/ServicePages.jsx";
@@ -77,9 +76,8 @@ export function App({ pathname = window.location.pathname }) {
   useEffect(() => {
     const root = document.querySelector(".site-shell");
     const reveal = createReveal(root);
-    const circuit = createCircuitMotion(root);
     const shots = createScrollShots(root);
-    return () => { reveal.destroy(); circuit.destroy(); shots.destroy(); };
+    return () => { reveal.destroy(); shots.destroy(); };
   }, [locale, page]);
 
   useEffect(() => {

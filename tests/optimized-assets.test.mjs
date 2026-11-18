@@ -29,12 +29,6 @@ test("the release provides proportional lossless symbol variants for the actual 
   }
 });
 
-test("the circuit derivative preserves its native dimensions and reduces transfer size", async () => {
-  const bytes = await readFile(asset("circuit-network.webp"));
-  assert.deepEqual(webpSize(bytes), [1672, 941]);
-  assert.ok(bytes.length < 300000);
-});
-
 test("the favicon is a small PNG instead of loading the full protected symbol", async () => {
   const bytes = await readFile(asset("tetelestai-favicon.png"));
   assert.deepEqual([bytes.readUInt32BE(16), bytes.readUInt32BE(20)], [64, 64]);
@@ -49,14 +43,13 @@ test("the initial home uses responsive WebP sources without preloading their PNG
   assert.match(html, /tetelestai-symbol-144\.webp/);
   assert.match(html, /tetelestai-symbol-640\.webp/);
   const preloads = html.match(/<link\b[^>]+rel="preload"[^>]*>/g) ?? [];
-  assert.ok(!preloads.some(tag => /tetelestai-symbol\.png|circuit-network\.png/.test(tag)),
+  assert.ok(!preloads.some(tag => /tetelestai-symbol\.png/.test(tag)),
     "The server must not force redundant downloads of the image fallbacks");
 });
 
 test("image optimization retains the exact protected originals", async () => {
   const expected = {
     "tetelestai-symbol.png": "2d9c7c3c12403aa55de0b8092cb78c7898615d084e0fd7bfedcb922dd7c063fd",
-    "circuit-network.png": "c3ecb4a6b71115df91bb0b6bc793a53d16ab167faaddcb582093cf73b14a769d",
     "tetelestai-share.png": "4ad291462b2a3af07c0300dd6ac786978bd7fa3535392539779b72ec0d8bf508",
   };
   for (const [name, hash] of Object.entries(expected)) {
