@@ -48,6 +48,13 @@ test('the homepage opens with one request: the free diagnosis through WhatsApp, 
       assert.match(hero, /<figure class="hm-ficha" aria-label="(?:Ilustração|Illustration):/);
       assert.ok(text(hero).includes(want.illustration));
       assert.equal((hero.match(/class="hm-chk"/g) ?? []).length, 4, `${path}: four ticks`);
+      // Two examples (approved on 18/11/2026): the law firm comes first and is the one in the prerendered page; the
+      // notary office is one button away. The opening must not read as "only notarial records" again.
+      const switches = [...hero.matchAll(/<button type="button" aria-pressed="(true|false)">([^<]+)<\/button>/g)].map(match => [match[2], match[1]]);
+      assert.deepEqual(switches, path === '/' ? [['Escritório', 'true'], ['Cartório', 'false']] : [['Law firm', 'true'], ['Notary office', 'false']], `${path}: the two examples, law firm first`);
+      assert.ok(text(hero).includes(path === '/' ? 'Vocês atendem esse tipo de caso?' : 'Do you handle this kind of case?'), `${path}: the law firm message`);
+      assert.ok(text(hero).includes(path === '/' ? 'Advogado responsável' : 'Lawyer in charge'), `${path}: the law firm example hands off to the lawyer`);
+      assert.ok(!/ata notarial|notarial record/i.test(text(hero)), `${path}: no notarial record in the opening`);
       assert.ok(!/data-reveal/.test(hero), `${path}: the title and the button never wait for the reveal`);
       // Every WhatsApp entry point of the page carries the diagnosis message and the confirmed number.
       const links = html.match(whatsapp) ?? [];
