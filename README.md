@@ -15,7 +15,7 @@ Institutional bilingual website for Tetelestai Soluções em Tecnologia Ltda.
 
 - React 19 and Vite 6.
 - Static, client-rendered interface with route-specific prebuilt HTML metadata shells.
-- Locally hosted fonts (Fontsource): Inter (headings and text) and Michroma (wordmark, labels and step numbers).
+- Locally hosted fonts (Fontsource): Newsreader (h1 and h2 headings), Inter (text) and Michroma (the TETELESTAI wordmark and small labels).
 - Motion: `src/reveal-kit.mjs` reveals sections once on scroll (the inline head script in `index.html` hides `[data-reveal]` only while it can run and shows everything after 3 s otherwise); sticky header that shrinks after 24 px; hover only on fine pointers; finite hero circuit pulses and the one-time closing circuit sweep (`src/circuit-motion.mjs`). Reduced motion shows everything still.
 - Inline SVG icons; one stylesheet (`src/site.css`).
 - Page components in `src/pages/`, shared layout in `src/Layout.jsx`, building blocks in `src/ui.jsx`; copy lives in the `*-content.mjs` modules.
@@ -70,10 +70,10 @@ The GitHub Pages artifact is `dist/client`. The build also prepares the Sites pa
 ## Brand and content constraints
 
 - Preserve the explicit Christian cross / letter-T symbol.
-- Approved slogan: `Tecnologia com propósito. Oportunidades sem fronteiras.`
-- Keep the three offers distinct: international career consulting, business automation and digital solutions and practical AI training.
+- Approved brand phrase (since 2026-11-18): `Tecnologia com propósito.` (EN: `Technology with purpose.`).
+- Positioning (since 2026-11-18): AI and automation for law firms and notary and registry offices in the Federal District; the homepage asks for a free diagnosis through WhatsApp. Websites, landing pages and delivered projects keep their own pages. Mentoring, international career and AI training are no longer on the site (their old addresses are static redirect pages).
 - Use WhatsApp only through the confirmed contact link `https://wa.me/556184711930`; do not claim guaranteed interviews, hiring, visas, immigration advice, client relationships, metrics or outcomes.
-- Do not state a number of years of experience unless Carlos confirms it.
+- No personal names, titles, years of experience, employers or LinkedIn links on commercial pages or in structured data.
 
 ## Verification
 
