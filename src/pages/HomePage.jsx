@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { HOME, UI } from "../home-content.mjs";
 import { APPS, CLIENT_PROJECTS } from "../portfolio-content.mjs";
 import { PageShell } from "../Layout.jsx";
@@ -11,6 +12,31 @@ const Check = () => (
 
 // "{sites}" and "{apps}" are counted from the portfolio data (client websites and App Store apps), never typed by hand.
 const countFacts = text => text.replace("{sites}", CLIENT_PROJECTS.length).replace("{apps}", Object.keys(APPS).length);
+
+// The illustrated service record of the opening, with two examples (law firm first). The prerendered page carries the
+// first one; choosing the other swaps the texts and remounts the list, so the ticks ("tt-confere") draw again.
+function Ficha({ ficha }) {
+  const [active, setActive] = useState(0);
+  const [switched, setSwitched] = useState(false);
+  const example = ficha.examples[active];
+  const choose = index => { setActive(index); setSwitched(true); };
+  return (
+    <figure className="hm-ficha" aria-label={ficha.label} data-switched={switched ? "" : undefined}>
+      <div className="hm-switch" role="group" aria-label={ficha.switchLabel}>
+        {ficha.examples.map((item, index) => (
+          <button type="button" key={item.name} aria-pressed={index === active} onClick={() => choose(index)}>{item.name}</button>
+        ))}
+      </div>
+      <div className="hm-ficha__tag"><span>{ficha.tagLabel}</span><span>{example.when}</span></div>
+      <p className="hm-msg">{example.message}<small>{ficha.messageNote}</small></p>
+      <h3>{ficha.title}</h3>
+      <dl key={active}>
+        {ficha.terms.map((term, index) => <div className="hm-row" key={term}><dt>{term}</dt><dd>{example.values[index]}</dd><Check /></div>)}
+      </dl>
+      <p className="hm-ficha__foot">{ficha.foot}</p>
+    </figure>
+  );
+}
 
 function Head({ eyebrow, title, lead, id }) {
   return (
@@ -40,15 +66,7 @@ export function HomePage({ locale }) {
             </div>
             <p className="hm-note">{hero.note}</p>
           </div>
-          <figure className="hm-ficha" aria-label={hero.ficha.label}>
-            <div className="hm-ficha__tag"><span>{hero.ficha.tag[0]}</span><span>{hero.ficha.tag[1]}</span></div>
-            <p className="hm-msg">{hero.ficha.message}<small>{hero.ficha.messageNote}</small></p>
-            <h3>{hero.ficha.title}</h3>
-            <dl>
-              {hero.ficha.rows.map(([term, value]) => <div className="hm-row" key={term}><dt>{term}</dt><dd>{value}</dd><Check /></div>)}
-            </dl>
-            <p className="hm-ficha__foot">{hero.ficha.foot}</p>
-          </figure>
+          <Ficha ficha={hero.ficha} />
         </div>
       </section>
 

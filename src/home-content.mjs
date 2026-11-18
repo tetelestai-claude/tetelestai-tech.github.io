@@ -138,11 +138,17 @@ export const HOME = {
       note: "De 30 a 45 minutos, por vídeo ou visita. Termina em proposta por escrito.",
       ficha: {
         label: "Ilustração: uma mensagem de WhatsApp vira ficha de atendimento conferida",
-        tag: ["Primeiro contato", "terça, 19h42"],
-        message: "Boa noite. Preciso de uma ata notarial de uma conversa de WhatsApp. Como funciona?",
+        // Two examples, law firm first (approved on 2026-11-18): the opening must not read as "only notarial records".
+        // The law firm example shows intake and hand-off only, never an answer to a legal question (OAB 205/2021).
+        switchLabel: "Exemplo de atendimento",
+        tagLabel: "Primeiro contato",
         messageNote: "Mensagem recebida fora do expediente",
         title: "Ficha de atendimento",
-        rows: [["Assunto", "Ata notarial"], ["Documentos", "Lista enviada, 2 recebidos"], ["Horário", "Quinta, 10h"], ["Passou para", "Escrevente de plantão"]],
+        terms: ["Assunto", "Documentos", "Horário", "Passou para"],
+        examples: [
+          { name: "Escritório", when: "terça, 19h42", message: "Boa noite. Fui demitido e não recebi as verbas. Vocês atendem esse tipo de caso?", values: ["Trabalhista · rescisão", "Lista enviada, 2 recebidos", "Quinta, 10h", "Advogado responsável"] },
+          { name: "Cartório", when: "quarta, 17h48", message: "Boa tarde. Quais documentos preciso para a escritura de compra e venda?", values: ["Escritura de compra e venda", "Lista enviada, 3 recebidos", "Sexta, 14h", "Escrevente"] },
+        ],
         foot: "Ilustração do fluxo, sem dados de clientes.",
       },
     },
@@ -254,11 +260,15 @@ export const HOME = {
       note: "30 to 45 minutes, by video or on-site visit. It ends in a written proposal.",
       ficha: {
         label: "Illustration: a WhatsApp message becomes a checked service record",
-        tag: ["First contact", "Tuesday, 7:42 pm"],
-        message: "Good evening. I need a notarial record (ata notarial) of a WhatsApp conversation. How does it work?",
+        switchLabel: "Service example",
+        tagLabel: "First contact",
         messageNote: "Message received outside business hours",
         title: "Service record",
-        rows: [["Subject", "Notarial record"], ["Documents", "List sent, 2 received"], ["Time", "Thursday, 10 am"], ["Handed to", "Clerk on duty"]],
+        terms: ["Subject", "Documents", "Time", "Handed to"],
+        examples: [
+          { name: "Law firm", when: "Tuesday, 7:42 pm", message: "Good evening. I was dismissed and did not receive my severance pay. Do you handle this kind of case?", values: ["Labor · termination", "List sent, 2 received", "Thursday, 10 am", "Lawyer in charge"] },
+          { name: "Notary office", when: "Wednesday, 5:48 pm", message: "Good afternoon. Which documents do I need for a property purchase deed?", values: ["Purchase and sale deed", "List sent, 3 received", "Friday, 2 pm", "Clerk"] },
+        ],
         foot: "Illustration of the flow, with no client data.",
       },
     },
