@@ -627,6 +627,15 @@ body:has(.analytics-consent) .wa-float{display:none}
   .hm-acts .hm-btn{width:100%}
   .hm-card,.hm-price{padding:22px}
 }
+/* Smallest phones (320 px): the header button is hidden there, so the opening is compacted to keep the main action on the first screen. */
+@media (max-width:359px){
+  .hm-hero{padding-top:20px}
+  .hm-hero .eyebrow{font-size:.66rem;letter-spacing:.1em;white-space:nowrap}
+  .hm-hero h1{font-size:2rem;margin-top:10px}
+  .hm-lede{margin-top:14px;font-size:1rem}
+  .hm-acts{margin-top:18px}
+  .hm-acts .hm-btn{padding-inline:12px;font-size:.94rem}
+}
 
 /* ---------- Scroll reveal (motion kit): the CSS only hides; the movement runs in JS and ends ---------- */
 .js [data-reveal]:not(.is-in){opacity:0}
