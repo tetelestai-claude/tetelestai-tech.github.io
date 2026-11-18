@@ -176,7 +176,7 @@ test('home styles: paper reading, ink titles, petrol links, cyan only on the act
   assert.match(css, /\nh1,h2\{font-family:var\(--serif\);font-weight:500/);
   const block = css.match(/\/\* ---------- Homepage \(approved 18\/11\)[\s\S]*?(?=\/\* ---------- Scroll reveal)/)[0].replace(/\/\*[\s\S]*?\*\//g, '');
   for (const token of ['#F7F6F5', '#ECEAE7', '#000C19', '#0A6373', '#4B5560']) assert.ok(new RegExp(token, 'i').test(css), token);
-  assert.match(block, /--petrol:#0A6373/);
+  assert.match(css, /--petrol:#0A6373/); // the token moved to :root in phase 2, so every page shares it
   assert.match(block, /\.hm-sec\{[^}]*background:var\(--paper\)/);
   assert.match(block, /\.hm-sec--dark\{background:var\(--navy\)/);
   assert.match(block, /\.hm-card\{background:#fff/);

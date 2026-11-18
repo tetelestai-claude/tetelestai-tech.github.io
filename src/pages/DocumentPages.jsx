@@ -123,12 +123,12 @@ export function NotFoundPage({ locale }) {
   const t = UI[locale].notFound;
   return (
     <PageShell locale={locale} page="notFound" sticky={null}>
-      <section className="doc-hero dark not-found">
+      <section className="doc-hero light not-found">
         <div className="wrap doc-hero__in">
           <p className="eyebrow">{t.kicker}</p>
           <h1>{t.title}</h1>
           <p className="lead">{t.text}</p>
-          <LinkArrow href={pathFor("home", locale)} icon="back" className="link link--arrow link--white">{t.back}</LinkArrow>
+          <LinkArrow href={pathFor("home", locale)} icon="back" className="link link--arrow link--teal">{t.back}</LinkArrow>
         </div>
       </section>
     </PageShell>

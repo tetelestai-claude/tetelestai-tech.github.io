@@ -5,7 +5,7 @@ import { portfolioFor } from "../localized-content.mjs";
 import { APPS, CASE_COPY, CLIENT_PROJECTS } from "../portfolio-content.mjs";
 import { PageShell, pathFor } from "../Layout.jsx";
 import {
-  Browser, Circuits, Crumbs, CtaFinal, DevicePair, Facts, IconOut, IconPlay, LinkArrow, SectionHead, WhatsAppLink,
+  Browser, Crumbs, CtaFinal, DevicePair, Facts, IconOut, IconPlay, LinkArrow, SectionHead, WhatsAppLink,
 } from "../ui.jsx";
 
 const track = (placement, appId) => () => getAnalytics()?.trackAppStore(placement, appId);
@@ -20,7 +20,7 @@ function AppCard({ app, locale, storeHref, qrHref }) {
           <div><p className="case__meta">{app.category[locale]}</p><h3 className="h3" id={app.titleId}>{app.name}</h3></div>
         </div>
         <p className="muted">{app.text[locale]}</p>
-        <div className="card card--glass"><ul>{app.features[locale].map(item => <li key={item}>{item}</li>)}</ul></div>
+        <div className="card"><ul>{app.features[locale].map(item => <li key={item}>{item}</li>)}</ul></div>
         <div className="btn-row">
           <a className="btn btn--glass" href={storeHref} target="_blank" rel="noopener noreferrer" onClick={track("button", app.id)}>{en ? "Download on the App Store" : "Baixar na App Store"}<IconOut /></a>
           <a className="qr" href={qrHref} target="_blank" rel="noopener noreferrer" onClick={track("qr_link", app.id)} aria-label={en ? `Open ${app.name} on the App Store` : `Abrir ${app.name} na App Store`}>
@@ -58,7 +58,6 @@ export function PortfolioIndex({ locale }) {
   return (
     <PageShell locale={locale} page="portfolio">
       <section id="home" className="hero hero--page dark" aria-labelledby="portfolio-title">
-        <Circuits />
         <div className="wrap hero__in">
           <div className="hero__text">
             <Crumbs label={t.breadcrumbLabel} items={[{ label: t.homeLabel, href: pathFor("home", locale) }, { label: page.label }]} />
@@ -95,13 +94,13 @@ export function PortfolioIndex({ locale }) {
         </div>
       </section>
 
-      <section className="section dark" id="apps" aria-labelledby="ios-apps-title">
+      <section className="section light section--alt" id="apps" aria-labelledby="ios-apps-title">
         <div className="wrap">
           <SectionHead eyebrow={page.apps.eyebrow} title={page.apps.title} aside={page.apps.aside} id="ios-apps-title" />
           <div className="stack">
             <AppCard app={APPS.recarga} locale={locale} storeHref={APP_STORE_LINKS.button} qrHref={APP_STORE_LINKS.qr} />
             <AppCard app={APPS.deRole} locale={locale} storeHref={DE_ROLE_APP_STORE.url} qrHref={DE_ROLE_APP_STORE.url} />
-            <div className="card card--glass card--wide" data-reveal="">
+            <div className="card card--wide" data-reveal="">
               <div className="stack stack--sm"><p className="eyebrow">{page.appsCta.eyebrow}</p><h3 className="h2">{page.appsCta.title}</h3><p>{page.appsCta.text}</p></div>
               <WhatsAppLink message={page.appsCta.waMessage} className="btn btn--lg">{page.appsCta.cta}</WhatsAppLink>
             </div>
@@ -128,7 +127,6 @@ export function CasePage({ locale, page }) {
   return (
     <PageShell locale={locale} page={page} whatsapp={{ message }}>
       <section id="home" className="hero hero--page dark" aria-labelledby="portfolio-title">
-        <Circuits />
         <div className="wrap hero__in">
           <div className="hero__text">
             <Crumbs label={t.breadcrumbLabel} items={[{ label: t.homeLabel, href: pathFor("home", locale) }, { label: pages.portfolio.label, href: pages.portfolio.path }, { label: project.name }]} />
