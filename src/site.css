@@ -621,6 +621,14 @@ body:has(.analytics-consent) .wa-float{display:none}
   .hm-acts{margin-top:18px}
   .hm-acts .hm-btn{padding-inline:12px;font-size:.94rem}
 }
+/* Same for the inner pages (sites, landing pages, portfolio, cases): at 320 px the opening is compacted so the main action stays on the first screen. */
+@media (max-width:359px){
+  .hero--page .hero__in{padding-top:16px}
+  .hero--page .hero__text{gap:12px}
+  .hero--page h1{font-size:1.7rem}
+  .hero--page .lead{font-size:1rem}
+  .hero--page .crumbs a{min-height:24px}
+}
 
 /* ---------- Scroll reveal (motion kit): the CSS only hides; the movement runs in JS and ends ---------- */
 .js [data-reveal]:not(.is-in){opacity:0}
