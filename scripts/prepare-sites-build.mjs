@@ -13,7 +13,7 @@ import { fileURLToPath } from "node:url";
 import { verifyRecargaWeb } from "./verify-recarga-web.mjs";
 
 import { PORTFOLIO_PAGES } from "../src/portfolio-content.mjs";
-import { HOME } from "../src/home-content.mjs";
+import { HOME, UI } from "../src/home-content.mjs";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const dist = path.join(root, "dist");
@@ -109,6 +109,17 @@ const routeShells = [
       robots: "noindex,nofollow",
     })),
   ),
+  // GitHub Pages answers every unknown address, at any depth, with this file and status 404. It carries the site's own
+  // 404 page in Portuguese; under /en/ the browser swaps it for the English one (src/main.jsx). It stands for no
+  // address of its own, so it has no canonical, no og:url and no hreflang.
+  {
+    output: "404.html",
+    pathname: "/404.html",
+    lang: "pt-BR",
+    title: UI.pt.notFound.metaTitle,
+    description: UI.pt.notFound.text,
+    robots: "noindex,nofollow",
+  },
 ];
 
 function escapeHtml(value) {
@@ -127,14 +138,19 @@ function replaceMeta(html, attribute, name, content) {
 function buildRouteShell(baseHtml, route) {
   let html = baseHtml
     .replace(/<html lang="[^"]+">/, `<html lang="${route.lang}">`)
-    .replace(/<title>.*?<\/title>/, `<title>${escapeHtml(route.title)}</title>`)
-    .replace(/<link rel="canonical" href="[^"]+" \/>/, `<link rel="canonical" href="${route.canonical}" />`);
+    .replace(/<title>.*?<\/title>/, `<title>${escapeHtml(route.title)}</title>`);
+
+  html = route.canonical
+    ? html.replace(/<link rel="canonical" href="[^"]+" \/>/, `<link rel="canonical" href="${route.canonical}" />`)
+    : html.replace(/\s*<link rel="canonical" href="[^"]+" \/>/, "");
+  html = route.canonical
+    ? replaceMeta(html, "property", "og:url", route.canonical)
+    : html.replace(/\s*<meta property="og:url" content="[^"]+" \/>/, "");
 
   html = replaceMeta(html, "name", "description", route.description);
   html = replaceMeta(html, "name", "robots", route.robots);
   html = replaceMeta(html, "property", "og:title", route.title);
   html = replaceMeta(html, "property", "og:description", route.description);
-  html = replaceMeta(html, "property", "og:url", route.canonical);
   html = replaceMeta(html, "property", "og:locale", route.lang === "en" ? "en_US" : "pt_BR");
   const imageAlt = route.lang === "en" ? "Tetelestai's original symbol on a navy background." : "Símbolo original da Tetelestai sobre fundo azul-marinho.";
   html = replaceMeta(html, "property", "og:image:alt", imageAlt);

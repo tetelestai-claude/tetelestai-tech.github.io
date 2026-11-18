@@ -290,6 +290,49 @@ test("emits the files required by Sites packaging", async () => {
   await access(new URL("../dist/.openai/hosting.json", import.meta.url));
 });
 
+test("emits 404.html with the site's own 404 page for GitHub Pages", async () => {
+  // GitHub Pages serves /404.html, with status 404, for every unknown address at any depth.
+  const html = await readFile(new URL("../dist/client/404.html", import.meta.url), "utf8");
+  const head = html.slice(0, html.indexOf("</head>"));
+  assert.match(html, /<html lang="pt-BR">/);
+  assert.match(head, /<title>Página não encontrada \| Tetelestai<\/title>/);
+  assert.match(head, /<meta name="robots" content="noindex,nofollow" \/>/);
+  // It stands for no address of its own: no canonical, no og:url, no hreflang.
+  assert.doesNotMatch(head, /rel="canonical"|property="og:url"|hreflang=/);
+  // The prerendered page: header, the paper 404 section with one h1 and the way back, footer.
+  assert.match(html, /<section class="doc-hero light not-found">/);
+  assert.equal((html.match(/<h1\b/g) ?? []).length, 1);
+  assert.match(html, /<h1>Este endereço não existe<\/h1>/);
+  assert.match(html, /<a\b[^>]*href="\/"[^>]*>(?:(?!<\/a>)[\s\S])*Ir para o início/);
+  assert.match(html, /<footer\b/);
+  // Served at any depth, so every local asset is referenced from the root, never relative to the address.
+  const refs = [...html.matchAll(/\b(?:src|href)="([^"]+)"/g)].map(match => match[1]);
+  const relative = refs.filter(ref => !/^(?:\/|https?:|mailto:|tel:|#|data:)/.test(ref));
+  assert.deepEqual(relative, []);
+  assert.match(html, /<script type="module"[^>]* src="\/assets\/[^"]+\.js"/);
+  // Not a page to index: out of the sitemap.
+  const sitemap = await readFile(new URL("../dist/client/sitemap.xml", import.meta.url), "utf8");
+  assert.doesNotMatch(sitemap, /404/);
+});
+
+test("the Portuguese 404 markup is not hydrated under an English address", async () => {
+  const main = await readFile(new URL("../src/main.jsx", import.meta.url), "utf8");
+  assert.match(main, /routeLocale\(window\.location\.pathname\) !== prerenderedLocale\) root\.replaceChildren\(\)/);
+  const { createServer } = await import("vite");
+  const renderer = await createServer({ appType: "custom", server: { middlewareMode: true, hmr: false, ws: false, watch: null }, optimizeDeps: { noDiscovery: true, include: [] } });
+  try {
+    const { routeLocale } = await renderer.ssrLoadModule("/src/App.jsx");
+    assert.equal(routeLocale("/nao-existe"), "pt");
+    assert.equal(routeLocale("/projetos/nao-existe/"), "pt");
+    assert.equal(routeLocale("/en/does-not-exist"), "en");
+    assert.equal(routeLocale("/en/projects/does-not-exist/"), "en");
+    assert.equal(routeLocale("/"), "pt");
+    assert.equal(routeLocale("/en/"), "en");
+  } finally {
+    await renderer.close();
+  }
+});
+
 test("publishes an opaque WhatsApp share image with complete Open Graph metadata", async () => {
   const homeHtml = await readFile(new URL("../dist/client/index.html", import.meta.url), "utf8");
   const headEnd = homeHtml.indexOf("</head>");

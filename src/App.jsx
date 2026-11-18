@@ -50,6 +50,9 @@ function resolveRoute(pathname) {
   return { locale: normalizedPath.startsWith("/en/") ? "en" : "pt", page: "notFound" };
 }
 
+// The language the app renders for an address ("pt" or "en"), known before the first render.
+export const routeLocale = pathname => resolveRoute(pathname).locale;
+
 const SERVICE_VIEWS = { sites: SitesPage, landingPages: LandingPage };
 
 function PageView({ locale, page }) {
