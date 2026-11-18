@@ -27,24 +27,6 @@ const servicePages = [
     fixture: "landing pages page",
     contentPattern: /landing page/i,
   },
-  {
-    path: "/carreira-internacional/",
-    heading: "Carreira internacional em TI: frente em reformulação",
-    titlePattern: /carreira internacional/i,
-    canonical: "https://tetelestai.tech/carreira-internacional/",
-    shell: "/carreira-internacional/index.html",
-    fixture: "career page",
-    contentPattern: /currículo em inglês/i,
-  },
-  {
-    path: "/capacitacao-em-ia/",
-    heading: "Capacitação prática em IA para equipes e profissionais",
-    titlePattern: /capacitação.*IA/i,
-    canonical: "https://tetelestai.tech/capacitacao-em-ia/",
-    shell: "/capacitacao-em-ia/index.html",
-    fixture: "AI training page",
-    contentPattern: /público.*objetivo.*nível/i,
-  },
 ];
 
 async function readBuiltHtml(pathname) {
@@ -87,7 +69,7 @@ test("explicit index documents render the same page as their known directory rou
   try {
     const { App } = await renderer.ssrLoadModule("/src/App.jsx");
     const render = (pathname) => renderToString(createElement(App, { pathname }));
-    for (const pathname of ["/", "/en/", "/criacao-de-sites/", "/criacao-de-landing-pages/", "/carreira-internacional/", "/capacitacao-em-ia/", "/privacidade/", "/en/privacy/", "/recarga/suporte/"]) {
+    for (const pathname of ["/", "/en/", "/criacao-de-sites/", "/criacao-de-landing-pages/", "/privacidade/", "/en/privacy/", "/recarga/suporte/"]) {
       assert.equal(render(`${pathname}index.html`), render(pathname), `${pathname}index.html must preserve its page during hydration`);
     }
     assert.match(render("/unknown-service/index.html"), /Página não encontrada/);
@@ -109,15 +91,8 @@ for (const page of servicePages) {
       .map((match) => textContent(match[1]));
     assert.ok(paragraphs.some((text) => page.contentPattern.test(text)),
       "Service copy must be present in the initial HTML, not only in a JavaScript bundle");
-    const career = page.path === "/carreira-internacional/";
     assert.ok(tags(main, "a").some((tag) => isConfirmedWhatsApp(attribute(tag, "href")?.replaceAll("&amp;", "&"))),
       "The initial service content must link to the confirmed WhatsApp address");
-    if (career) {
-      assert.ok(!/kiwify/i.test(html), "The neutral career page must not link to any checkout");
-      for (const retired of [/Essencial/, /Acompanhado/, /Kit Word/, /R\$\s?47\b/, /R\$\s?497\b/, /9,90/]) {
-        assert.ok(!retired.test(textContent(main)), `The career page must not mention retired products or prices (${retired})`);
-      }
-    }
   });
 
   test(`${page.path} has its own indexable Portuguese metadata with its equivalent English translation`, async () => {
@@ -160,14 +135,16 @@ for (const page of servicePages) {
   });
 }
 
-test("the Portuguese home exposes all four service links in its initial main content", async () => {
-  const html = await readBuiltHtml("/");
-  const main = html.match(/<main\b[^>]*>([\s\S]*?)<\/main>/i)?.[1];
-  assert.ok(main, "The Portuguese home must be prerendered");
-  const anchors = [...main.matchAll(/<a\b([^>]*)>([\s\S]*?)<\/a>/gi)];
-  for (const page of servicePages) {
-    assert.ok(anchors.some((match) => attribute(`<a ${match[1]}>`, "href") === page.path
-      && textContent(match[2]).length > 0), `The home must expose a labeled link to ${page.path}`);
+test("the footer of every page links the landing page offer and the projects, and the other products", async () => {
+  for (const [pathname, landing, projects, heading] of [["/", "/criacao-de-landing-pages/", "/projetos/", "Também fazemos"], ["/en/", "/en/landing-pages/", "/en/projects/", "We also offer"], ["/criacao-de-sites/", "/criacao-de-landing-pages/", "/projetos/", "Também fazemos"]]) {
+    const html = await readBuiltHtml(pathname);
+    const footer = html.match(/<footer\b[^>]*>([\s\S]*?)<\/footer>/i)?.[1];
+    assert.ok(footer, pathname);
+    assert.ok(footer.includes(`>${heading}</h2>`), `${pathname}: footer column`);
+    const hrefs = tags(footer, "a").map(tag => attribute(tag, "href")?.replaceAll("&amp;", "&"));
+    for (const href of [landing, projects, "https://exatoteor.com.br/", "https://amesa.app/", "https://apps.apple.com/br/app/id6820150552", "https://apps.apple.com/br/app/id6815378368?pt=129504047&ct=site_tetelestai_botao&mt=8"]) {
+      assert.ok(hrefs.includes(href), `${pathname}: footer links to ${href}`);
+    }
   }
 });
 
@@ -180,8 +157,6 @@ test("the sitemap lists the homes, service pages and approved portfolio pages ex
     ...COMMERCIAL_TRANSLATIONS.map(pair=>`https://tetelestai.tech${pair.en}`),
     "https://tetelestai.tech/criacao-de-sites/",
     "https://tetelestai.tech/criacao-de-landing-pages/",
-    "https://tetelestai.tech/carreira-internacional/",
-    "https://tetelestai.tech/capacitacao-em-ia/",
     "https://tetelestai.tech/projetos/",
     "https://tetelestai.tech/projetos/infinity-car-studio/",
     "https://tetelestai.tech/projetos/bolachinhas-da-vovo-juju/",
@@ -205,6 +180,10 @@ test("unknown, malformed and asset paths never enter the service route fallback"
     "/assets/missing.js",
     "/carreira-internacional//",
     "/capacitacao-em-ia/missing",
+    "/carreira-internacional/missing",
+    "/en/international-career/missing",
+    "/en/ai-training/missing",
+    "/experimento/missing",
     "/en/carreira-internacional/",
     "/capacitacao-em-ia/missing.js",
   ]) {
@@ -222,37 +201,18 @@ test("the English home contains its translated content and contact before JavaSc
   const html = await readBuiltHtml("/en/");
   const main = html.match(/<main\b[^>]*>([\s\S]*?)<\/main>/i)?.[1];
   assert.ok(main, "The English home must include initial main content");
-  assert.match(textContent(main), /Technology with purpose/);
-  assert.match(textContent(main), /International career/);
+  assert.match(textContent(main), /AI and automation for law firms and notary and registry offices in the Federal District\./);
+  assert.match(textContent(html.match(/<footer\b[\s\S]*?<\/footer>/i)[0]), /Technology with purpose\./);
+  assert.doesNotMatch(html, /Opportunities without borders/);
   assert.ok(tags(main, "a").some(tag => isConfirmedWhatsApp(attribute(tag, "href")?.replaceAll("&amp;", "&"))));
   assert.equal(attribute(tags(html, "html")[0], "lang"), "en");
 });
 
-test("home service links remain grouped under the offer they describe", async () => {
-  const html = await readBuiltHtml("/");
-  const groups = {
-    "carreira-internacional": ["/carreira-internacional/"],
-    "solucoes-digitais": ["/criacao-de-sites/", "/criacao-de-landing-pages/"],
-    "capacitacao-ia": ["/capacitacao-em-ia/"],
-  };
-  const allPaths = Object.values(groups).flat();
-  for (const [id, expected] of Object.entries(groups)) {
-    const article = html.match(new RegExp(`<article\\b[^>]*id="${id}"[^>]*>([\\s\\S]*?)</article>`))?.[1];
-    assert.ok(article, `Missing offer ${id}`);
-    const paths = tags(article, "a").map(tag => attribute(tag, "href")).filter(href => allPaths.includes(href));
-    assert.deepEqual(paths.sort(), expected.sort(), `Links for ${id} must not mix offers`);
-  }
-});
-
-test("digital projects are not presented as proof of career or training services", async () => {
-  for (const pathname of ["/carreira-internacional/", "/capacitacao-em-ia/"]) {
-    const html = await readBuiltHtml(pathname);
-    assert.ok(!html.includes('id="projects"'), `${pathname} must not inherit digital project claims`);
-    assert.ok(!html.includes("Outro serviço digital"));
-  }
+test("the website and landing page pages keep their client projects before the FAQ", async () => {
   for (const pathname of ["/criacao-de-sites/", "/criacao-de-landing-pages/"]) {
     assert.ok((await readBuiltHtml(pathname)).includes('id="projects"'));
   }
+  assert.ok(!(await readBuiltHtml("/")).includes('id="projects"'), "the homepage no longer presents client projects");
 });
 
 test("service paths preserve missing responses for unsupported methods and non-HTML requests", async () => {
@@ -297,7 +257,7 @@ test("key facts grids end with full rows on every page that has them", async () 
     const { App } = await renderer.ssrLoadModule("/src/App.jsx");
     const { factsColumns } = await renderer.ssrLoadModule("/src/ui.jsx");
     assert.deepEqual([6, 8, 9, 12].map(factsColumns), [3, 4, 3, 4]);
-    for (const pathname of ["/criacao-de-sites/", "/criacao-de-landing-pages/", "/carreira-internacional/", "/capacitacao-em-ia/", "/en/website-development/", "/projetos/infinity-car-studio/", "/projetos/bolachinhas-da-vovo-juju/", "/projetos/afeto-nobre/", "/projetos/lalelis/", "/en/projects/lalelis/", "/projetos/respeitavel-feijuca/"]) {
+    for (const pathname of ["/criacao-de-sites/", "/criacao-de-landing-pages/", "/en/website-development/", "/projetos/infinity-car-studio/", "/projetos/bolachinhas-da-vovo-juju/", "/projetos/afeto-nobre/", "/projetos/lalelis/", "/en/projects/lalelis/", "/projetos/respeitavel-feijuca/"]) {
       const html = renderToString(createElement(App, { pathname }));
       const grid = html.match(/<dl class="facts"[^>]*style="--facts-cols:(\d+)"[^>]*>([\s\S]*?)<\/dl>/);
       assert.ok(grid, `${pathname} renders a key facts grid with a column count`);

@@ -103,11 +103,6 @@ export const PORTFOLIO_PAGES = {
       text: "Do protótipo à publicação na App Store e no Google Play. Escopo, prazo e preço vêm por escrito, depois de uma conversa.",
       cta: "Pedir orçamento de app", waMessage: "Olá! Quero um orçamento de aplicativo (iOS/Android) para o meu negócio.",
     },
-    instagram: {
-      eyebrow: "Além dos projetos", title: "Conteúdos no Instagram",
-      aside: "Vídeos autorais e remixes do IA na Prática, publicados em colaboração com a TETELESTAI.",
-      more: "Conhecer o IA na Prática",
-    },
     final: { title: "Quer um projeto assim para o seu negócio?", text: "Conte o que você precisa. A proposta vem com preço e prazo." },
   },
   feijucaProject: {

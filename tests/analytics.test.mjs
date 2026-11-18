@@ -27,13 +27,15 @@ function browser(path = "/", hostname = "tetelestai.tech", search = "") {
   return { controller, win, doc, stored, scripts, cookies, timers, events, setNow: value => { now = value; }, get reloads() { return reloads; } };
 }
 
-test("only the twenty-two commercial pages and their explicit aliases qualify", () => {
-  for (const path of ["/", "/en/", "/criacao-de-sites/", "/criacao-de-landing-pages/", "/carreira-internacional/", "/capacitacao-em-ia/", "/projetos/", "/projetos/infinity-car-studio/", "/projetos/bolachinhas-da-vovo-juju/", "/projetos/afeto-nobre/", "/projetos/lalelis/", "/projetos/respeitavel-feijuca/", "/en/projects/afeto-nobre/", "/en/projects/lalelis/", "/en/projects/respeitavel-feijuca/", "/en/website-development/", "/en/landing-pages/", "/en/international-career/", "/en/ai-training/", "/en/projects/", "/en/projects/infinity-car-studio/", "/en/projects/bolachinhas-da-vovo-juju/"]) {
+test("only the eighteen commercial pages and their explicit aliases qualify", () => {
+  for (const path of ["/", "/en/", "/criacao-de-sites/", "/criacao-de-landing-pages/", "/projetos/", "/projetos/infinity-car-studio/", "/projetos/bolachinhas-da-vovo-juju/", "/projetos/afeto-nobre/", "/projetos/lalelis/", "/projetos/respeitavel-feijuca/", "/en/projects/afeto-nobre/", "/en/projects/lalelis/", "/en/projects/respeitavel-feijuca/", "/en/website-development/", "/en/landing-pages/", "/en/projects/", "/en/projects/infinity-car-studio/", "/en/projects/bolachinhas-da-vovo-juju/"]) {
     assert.equal(measurementPath(path), path);
     assert.equal(measurementPath(`${path}index.html`), path);
     if (path !== "/") assert.equal(measurementPath(path.slice(0, -1)), path);
   }
-  for (const path of ["/projetos/afeto-nobre/extra/", "/projetos/lalelis//", "/recarga/", "/privacidade/", "/en/privacy/", "/missing/", "/en//", "/criacao-de-sites/missing/index.html", "/carreira-internacional/missing", "/capacitacao-em-ia//"]) assert.equal(measurementPath(path), null);
+  for (const path of ["/projetos/afeto-nobre/extra/", "/projetos/lalelis//", "/recarga/", "/privacidade/", "/en/privacy/", "/missing/", "/en//", "/criacao-de-sites/missing/index.html", "/carreira-internacional/missing", "/capacitacao-em-ia//",
+    // Pages removed on 2026-11-18 (static redirect pages now): they are never measured.
+    "/carreira-internacional/", "/capacitacao-em-ia/", "/en/international-career/", "/en/ai-training/", "/experimento/"]) assert.equal(measurementPath(path), null);
 });
 
 test("test link marks the first view and every click without overriding consent", () => {
@@ -225,7 +227,7 @@ test("a changed preference from another tab stops collection", () => {
 });
 
 test("earlier acceptances do not authorize the expanded scope until explicit confirmation", () => {
-  const b = browser("/carreira-internacional/");
+  const b = browser("/criacao-de-sites/");
   b.stored.set(CONSENT_KEY, JSON.stringify({ choice: "accepted", expiresAt: 10000 }));
   b.controller.sync();
   b.controller.trackWhatsApp();
@@ -239,7 +241,7 @@ test("earlier acceptances do not authorize the expanded scope until explicit con
 });
 
 test("earlier refusals remain effective for the rest of their original duration", () => {
-  const b = browser("/capacitacao-em-ia/");
+  const b = browser("/criacao-de-landing-pages/");
   const choice = JSON.stringify({ choice: "rejected", expiresAt: 10000 });
   b.stored.set(CONSENT_KEY, choice);
   b.controller.sync();
@@ -251,8 +253,8 @@ test("earlier refusals remain effective for the rest of their original duration"
   assert.equal(b.controller.choice(), null);
 });
 
-test("new service pages send only the existing minimal events after acceptance", () => {
-  for (const path of ["/carreira-internacional/", "/capacitacao-em-ia/"]) {
+test("service pages send only the existing minimal events after acceptance", () => {
+  for (const path of ["/criacao-de-sites/", "/en/landing-pages/"]) {
     const b = browser(path);
     b.controller.sync();
     b.controller.trackWhatsApp();
@@ -444,7 +446,7 @@ test("a test-mode change blocks video clicks from the earlier tag instead of mis
 });
 
 test("WhatsApp clicks report a safe placement and Essencial checkout clicks are measured after consent", () => {
-  const b = browser("/carreira-internacional/");
+  const b = browser("/criacao-de-landing-pages/");
   b.controller.trackCheckout("hero");
   assert.equal(b.events().length, 0, "nothing is sent before consent");
   b.controller.choose("accepted");
@@ -463,7 +465,7 @@ test("WhatsApp clicks report a safe placement and Essencial checkout clicks are 
   assert.equal(checkout[1], "checkout_click");
   assert.equal(checkout[2].product_name, "essencial");
   assert.equal(checkout[2].link_placement, "sticky");
-  assert.equal(checkout[2].page_path, "/carreira-internacional/");
+  assert.equal(checkout[2].page_path, "/criacao-de-landing-pages/");
 });
 
 test("WhatsApp clicks tell the landing page apart from quotes, and the floating button has its own placement", () => {
@@ -472,7 +474,9 @@ test("WhatsApp clicks tell the landing page apart from quotes, and the floating 
   b.controller.trackWhatsApp("hero", "landing_697");
   b.controller.trackWhatsApp("floating", "orcamento");
   b.controller.trackWhatsApp("hero", "<script>");
-  const [, lp, quote, unknown] = b.events();
+  b.controller.trackWhatsApp("hero", "diagnostico");
+  const [, lp, quote, unknown, diagnosis] = b.events();
+  assert.equal(diagnosis[2].contact_intent, "diagnostico", "the homepage diagnosis request is its own intent");
   assert.equal(lp[2].contact_intent, "landing_697");
   assert.equal(quote[2].contact_intent, "orcamento");
   assert.equal(quote[2].contact_placement, "floating");

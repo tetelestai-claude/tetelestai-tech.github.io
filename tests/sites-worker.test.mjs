@@ -354,13 +354,15 @@ test("publishes the confirmed service and contact content", async () => {
   assert.match(productionJavaScript, /John 19:30/);
   assert.doesNotMatch(productionJavaScript, /Está consumado! \(João 19:30\)/);
   assert.doesNotMatch(productionJavaScript, /It is finished! \(John 19:30\)/);
-  assert.match(productionJavaScript, /Tecnologia com propósito\. Oportunidades sem fronteiras\./);
-  assert.match(productionJavaScript, /Technology with purpose\. Opportunities without borders\./);
+  // Brand phrase since 18/11: only "Tecnologia com propósito." / "Technology with purpose.".
+  assert.match(productionJavaScript, /Tecnologia com propósito\./);
+  assert.match(productionJavaScript, /Technology with purpose\./);
+  assert.doesNotMatch(productionJavaScript, /Oportunidades sem fronteiras/);
+  assert.doesNotMatch(productionJavaScript, /Opportunities without borders/);
 
-  assert.match(productionJavaScript, /Co-Founder & CTO/);
-  assert.match(productionJavaScript, /Co-Founder & CEO/);
-  assert.match(productionJavaScript, /Co-fundadora e administradora da Tetelestai\. Lidera o negócio, o marketing e o relacionamento com clientes\./);
-  assert.match(productionJavaScript, /Co-founder and Tetelestai’s managing partner\. Leads the business, marketing and client relations\./);
+  // The people block left the site on 18/11: no names, titles, years, bank or LinkedIn in anything published.
+  assert.doesNotMatch(productionJavaScript, /Carlos|Viegas|Gabriela|Co-Founder|Cofundador|Banco do Brasil|linkedin|22 anos|22 years/i);
+  assert.doesNotMatch(productionJavaScript, /Quem faz o trabalho|Feito por|Built by/);
   assert.doesNotMatch(productionJavaScript, /Marketing e mídias sociais/);
   assert.doesNotMatch(productionJavaScript, /Marketing and social media/);
   assert.doesNotMatch(productionJavaScript, /Responsável técnico/);
@@ -375,8 +377,11 @@ test("publishes the confirmed service and contact content", async () => {
   assert.match(productionJavaScript, /Hospedagem, SSL, backup/);
   assert.match(productionJavaScript, /Domínio \.com\.br/);
 
-  assert.match(homeContent, /id: "solucoes-digitais"/);
-  assert.match(homeContent, /id: "digital-solutions"/);
+  // New positioning (18/11): AI and automation for law firms and notary offices; mentoring and AI training left the site.
+  assert.match(homeContent, /IA e automação para escritórios de advocacia e cartórios do DF\./);
+  assert.match(homeContent, /AI and automation for law firms and notary and registry offices in the Federal District\./);
+  assert.doesNotMatch(homeContent, /id: "(?:carreira-internacional|capacitacao-ia|practical-ai|international-career)"/);
+  assert.doesNotMatch(productionJavaScript, /carreira-internacional|capacitacao-em-ia|international-career|ai-training/);
   assert.doesNotMatch(homeContent, /id: "modelos-ia"/);
   assert.doesNotMatch(homeContent, /id: "ai-models"/);
   assert.doesNotMatch(productionJavaScript, /Treinamento e avaliação de modelos/);
