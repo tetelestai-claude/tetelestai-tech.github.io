@@ -55,9 +55,10 @@ export const LEGAL_CONTENT = {
         {
           title: "Triagem e atendimento humano",
           paragraphs: [
-            "A integração automatizada do TETELESTAI Atendimento com o WhatsApp empresarial ainda está em preparação na data desta versão.",
-            "Quando disponibilizada nesse canal, a triagem apresentará os serviços da Tetelestai, perguntará sobre sua necessidade e registrará um resumo interno para a equipe de atendimento. Esse resumo não será uma mensagem pública. Você poderá solicitar atendimento humano pela opção indicada no menu.",
-            "Esse fluxo utiliza regras predefinidas, sem análise por modelos de inteligência artificial generativa. A organização das conversas e a execução da triagem serão realizadas na infraestrutura de atendimento administrada pela Tetelestai.",
+            "O WhatsApp da Tetelestai é atendido primeiro por uma assistente virtual de inteligência artificial, que se apresenta como tal. Ela responde dúvidas sobre os serviços, faz algumas perguntas sobre o seu negócio e pode marcar o diagnóstico gratuito na agenda da Tetelestai.",
+            "A assistente funciona na plataforma GPT Maker e usa modelos de inteligência artificial generativa de terceiros para interpretar as mensagens e redigir as respostas. Ela não decide sobre contratação, preço final ou proposta: essas decisões ficam com a equipe da Tetelestai.",
+            "Quando o diagnóstico é marcado, o nome do negócio, o e-mail informado, a data e um resumo das respostas são registrados na agenda da Tetelestai e no controle interno de atendimentos da empresa. O convite da reunião é enviado ao e-mail informado. Esse resumo não é uma mensagem pública.",
+            "Você pode pedir atendimento humano a qualquer momento, escrevendo isso na conversa. Não envie documentos nem dados de clientes pela conversa: a assistente não os analisa.",
           ],
         },
         {
@@ -65,6 +66,7 @@ export const LEGAL_CONTENT = {
           paragraphs: [
             "A equipe da Tetelestai pode acessar as informações necessárias ao atendimento. Serviços de comunicação e de infraestrutura envolvidos também podem tratar dados para viabilizar seu funcionamento, conforme suas responsabilidades e políticas.",
             "Este site é hospedado pelo GitHub Pages, serviço da GitHub, Inc. Quando o site é visitado, o GitHub registra e armazena o endereço IP do visitante para fins de segurança. O uso do WhatsApp também envolve o tratamento de dados pelo WhatsApp/Meta, conforme as políticas desse serviço.",
+            "No atendimento pela assistente virtual também tratam dados, para viabilizar o funcionamento e conforme suas próprias políticas: a GPT Maker, plataforma da assistente, e os provedores de inteligência artificial que ela utiliza; o Google, pela agenda e pelo Google Meet; a Notion Labs, onde fica o controle interno de atendimentos; e a Cloudflare, que transfere os dados do agendamento para esse controle. Alguns desses serviços podem tratar dados fora do Brasil.",
             "Quando você aceita o Analytics, o Google recebe as requisições de medição, os identificadores dos cookies utilizados pelo serviço e os dados de navegação descritos acima. Os links da App Store identificam a campanha do botão ou do QR code, sem nomes, e-mails ou outros dados pessoais inseridos pelo site. Ao abrir esses links ou escanear o QR code, a navegação segue para a Apple e se sujeita às políticas desse serviço. Seus relatórios de campanha seguem os critérios de atribuição e os limites de disponibilidade da Apple.",
           ],
         },
@@ -107,7 +109,7 @@ export const LEGAL_CONTENT = {
         {
           title: "Funcionamento do atendimento",
           paragraphs: [
-            "A triagem automatizada está em preparação para o WhatsApp empresarial. Quando disponibilizada, ela organizará a solicitação por serviço, perguntará sobre a necessidade e encaminhará a conversa à equipe. O usuário poderá solicitar atendimento humano.",
+            "O primeiro atendimento no WhatsApp é feito por uma assistente virtual de inteligência artificial. Ela organiza a solicitação, pergunta sobre a necessidade, pode marcar o diagnóstico gratuito e encaminha a conversa à equipe quando o usuário pede atendimento humano ou quando o assunto exige.",
             "As respostas iniciais servem para orientar o contato. Elas não substituem a análise do caso, uma proposta ou um compromisso assumido expressamente pela Tetelestai. O encaminhamento não significa que um atendente esteja disponível imediatamente.",
           ],
         },
@@ -173,7 +175,7 @@ export const LEGAL_CONTENT = {
           title: "Quais registros o pedido pode abranger",
           paragraphs: [
             "O pedido pode abranger dados de contato, mensagens, arquivos enviados e resumos internos mantidos sob controle da Tetelestai, conforme o atendimento realizado e as hipóteses legais aplicáveis.",
-            "A integração automatizada com o WhatsApp empresarial ainda está em preparação nesta versão. Você já pode usar estes canais para pedidos relativos aos contatos realizados com a Tetelestai.",
+            "Isso inclui as conversas com a assistente virtual no WhatsApp, os agendamentos e os registros do controle interno de atendimentos. Você pode usar estes canais para pedidos relativos a qualquer contato com a Tetelestai.",
             "Não é necessário apagar sua conta do Facebook ou do WhatsApp para fazer o pedido. A Tetelestai não exclui sua conta nessas plataformas nem os registros que elas mantenham sob responsabilidade própria; para esses dados, utilize os canais do respectivo serviço.",
           ],
           link: { label: "Consultar a Política de Privacidade", href: "/privacidade/" },
@@ -225,9 +227,10 @@ export const LEGAL_CONTENT = {
         {
           title: "Triage and human support",
           paragraphs: [
-            "The automated integration of TETELESTAI Atendimento with the company’s WhatsApp account is still being prepared as of this version.",
-            "When available on that channel, triage will present Tetelestai’s services, ask about your needs and record an internal summary for the support team. This summary will not be a public message. You will be able to request human support through the option shown in the menu.",
-            "This flow uses predefined rules, without analysis by generative artificial intelligence models. Conversation management and triage will run on customer service infrastructure administered by Tetelestai.",
+            "Tetelestai’s WhatsApp is first answered by an artificial intelligence virtual assistant, which identifies itself as such. It answers questions about the services, asks a few questions about your business and may book the free assessment in Tetelestai’s calendar.",
+            "The assistant runs on the GPT Maker platform and uses third-party generative artificial intelligence models to interpret messages and write replies. It does not decide on contracting, final price or proposals: those decisions remain with Tetelestai’s team.",
+            "When the assessment is booked, the business name, the email provided, the date and a summary of your answers are recorded in Tetelestai’s calendar and in the company’s internal customer service records. The meeting invitation is sent to the email provided. This summary is not a public message.",
+            "You can ask for human support at any time by writing so in the conversation. Do not send documents or client data in the conversation: the assistant does not analyze them.",
           ],
         },
         {
@@ -235,6 +238,7 @@ export const LEGAL_CONTENT = {
           paragraphs: [
             "Tetelestai’s team may access information needed to handle your request. The communication and infrastructure services involved may also process data to operate, according to their responsibilities and policies.",
             "This website is hosted on GitHub Pages, a service provided by GitHub, Inc. When the site is visited, GitHub logs and stores the visitor’s IP address for security purposes. Using WhatsApp also involves processing by WhatsApp/Meta under that service’s policies.",
+            "Support through the virtual assistant also involves processing, to make it work and under their own policies, by: GPT Maker, the assistant’s platform, and the artificial intelligence providers it uses; Google, for the calendar and Google Meet; Notion Labs, which hosts the internal customer service records; and Cloudflare, which transfers booking data to those records. Some of these services may process data outside Brazil.",
             "When you accept Analytics, Google receives measurement requests, the identifiers of the cookies used by the service and the navigation data described above. App Store links identify the button or QR code campaign without names, email addresses or other personal data added by this website. Opening these links or scanning the QR code takes you to Apple and is subject to that service’s policies. Its campaign reports follow Apple’s attribution criteria and availability thresholds.",
           ],
         },
@@ -277,7 +281,7 @@ export const LEGAL_CONTENT = {
         {
           title: "How customer service works",
           paragraphs: [
-            "Automated triage is being prepared for the company’s WhatsApp account. When available, it will organize requests by service, ask about the need and pass the conversation to the team. Users will be able to request human support.",
+            "First-line support on WhatsApp is provided by an artificial intelligence virtual assistant. It organizes the request, asks about the need, may book the free assessment and passes the conversation to the team when the user asks for human support or when the matter requires it.",
             "Initial replies help direct the conversation. They do not replace an assessment of your situation, a proposal or an express commitment by Tetelestai. A handoff does not mean that a support agent is immediately available.",
           ],
         },
@@ -339,7 +343,7 @@ export const LEGAL_CONTENT = {
           title: "Records a request may cover",
           paragraphs: [
             "A request may cover contact details, messages, files sent and internal summaries held under Tetelestai’s control, depending on the service provided and the applicable legal conditions.",
-            "Automated integration with the company’s WhatsApp account is still being prepared in this version. You can already use these channels for requests relating to your contact with Tetelestai.",
+            "This includes conversations with the virtual assistant on WhatsApp, bookings and the internal customer service records. You can use these channels for requests relating to any contact with Tetelestai.",
             "You do not need to delete your Facebook or WhatsApp account to make a request. Tetelestai does not delete your accounts on those platforms or the records they hold under their own responsibility; use the relevant service’s channels for that data.",
           ],
           link: { label: "Read the Privacy Policy", href: "/en/privacy/" },
@@ -399,3 +403,11 @@ LEGAL_CONTENT.en.privacy.updatedDate = "2026-11-18";
 LEGAL_CONTENT.en.terms.updated = "Updated on November 18, 2026";
 LEGAL_CONTENT.en.terms.updatedDate = "2026-11-18";
 LEGAL_CONTENT.en.privacy.metaDescription = "How Tetelestai handles data on its website, in the De Rolê app and in customer support, and how to exercise privacy rights.";
+// 2026-11-19: WhatsApp first-line support is now an AI virtual assistant (GPT Maker), with bookings in Google Calendar and
+// records in Notion through Cloudflare. Privacy, terms and deletion pages describe it and are dated accordingly.
+for (const lang of ["pt", "en"]) {
+  for (const doc of ["privacy", "terms", "deletion"]) {
+    LEGAL_CONTENT[lang][doc].updated = lang === "pt" ? "Atualizado em 19 de novembro de 2026" : "Updated on November 19, 2026";
+    LEGAL_CONTENT[lang][doc].updatedDate = "2026-11-19";
+  }
+}
