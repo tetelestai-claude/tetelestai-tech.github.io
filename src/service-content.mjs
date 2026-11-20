@@ -1,6 +1,10 @@
+import { AUDIENCE_PAGES } from "./audience-content.mjs";
+
 // Portuguese service pages (redesign 2026-10). `label` and `intro` also feed the
 // Service structured data; `intro` must stay identical to the visible hero lead.
 export const SERVICE_PAGES = {
+  // Pages per audience (20/11): law firms and notary offices of the Federal District.
+  ...AUDIENCE_PAGES.pt,
   sites: {
     path: "/criacao-de-sites/",
     label: "Criação de sites",

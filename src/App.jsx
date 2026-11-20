@@ -14,7 +14,7 @@ import { AnalyticsConsent } from "./AnalyticsConsent.jsx";
 import { createReveal } from "./reveal-kit.mjs";
 import { createScrollShots } from "./scroll-shots.mjs";
 import { HomePage } from "./pages/HomePage.jsx";
-import { LandingPage, SitesPage } from "./pages/ServicePages.jsx";
+import { AudiencePage, LandingPage, SitesPage } from "./pages/ServicePages.jsx";
 import { CasePage, PortfolioIndex } from "./pages/PortfolioPages.jsx";
 import { DeRolePage, LegalPage, NotFoundPage, RecargaPage } from "./pages/DocumentPages.jsx";
 
@@ -53,12 +53,12 @@ function resolveRoute(pathname) {
 // The language the app renders for an address ("pt" or "en"), known before the first render.
 export const routeLocale = pathname => resolveRoute(pathname).locale;
 
-const SERVICE_VIEWS = { sites: SitesPage, landingPages: LandingPage };
+const SERVICE_VIEWS = { sites: SitesPage, landingPages: LandingPage, advocacia: AudiencePage, cartorios: AudiencePage };
 
 function PageView({ locale, page }) {
   if (DE_ROLE_PAGES[page]) return <DeRolePage page={page} />;
   if (RECARGA_PAGES[page]) return <RecargaPage page={page} />;
-  if (SERVICE_VIEWS[page]) { const View = SERVICE_VIEWS[page]; return <View locale={locale} />; }
+  if (SERVICE_VIEWS[page]) { const View = SERVICE_VIEWS[page]; return <View locale={locale} page={page} />; }
   if (page === "portfolio") return <PortfolioIndex locale={locale} />;
   if (PORTFOLIO_PAGES[page]) return <CasePage locale={locale} page={page} />;
   if (LEGAL_PATHS[page]) return <LegalPage locale={locale} page={page} />;

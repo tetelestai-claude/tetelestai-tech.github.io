@@ -46,8 +46,8 @@ test("De Rolê privacy supplement is in both legal pages without changing their 
   for (const [pathname, heading] of [["privacidade", "Aplicativo De Rolê"], ["en/privacy", "De Rolê app"]]) {
     const html = await readFile(new URL(`../dist/client/${pathname}/index.html`, import.meta.url), "utf8");
     assert.ok(html.includes(heading));
-    assert.match(html, /2026-11-19/, 'privacy version date (WhatsApp support by an AI virtual assistant, 2026-11-19)');
-    assert.match(html, /18 (?:páginas comerciais|commercial pages)/);
+    assert.match(html, /2026-11-20/, 'privacy version date (pages for law firms and notary offices measured, 2026-11-20)');
+    assert.match(html, /22 (?:páginas comerciais|commercial pages)/);
     assert.doesNotMatch(html, /carreira internacional|capacitação em IA|international career|AI training/);
     assert.match(html, /Google Play/);
     assert.match(html, /contato@tetelestai\.tech/);

@@ -12,6 +12,8 @@ import { FloatingWhatsApp, IconArrow, IconArrowBack, SymbolPicture, WhatsAppLink
 const LANDING_FIRST = ["landingPages"];
 // The homepage asks for the free AI and automation diagnosis (Carlos, 18/11).
 const DIAGNOSIS_FIRST = ["home"];
+// Audience pages (20/11) ask for the same diagnosis with their own WhatsApp message; they keep the menu of the other pages.
+const audienceOf = (page, locale) => { const service = servicesFor(locale)[page]; return service?.kind === "audience" ? service : null; };
 
 export function pathFor(key, locale) {
   if (key === "home") return HOME[locale].path;
@@ -48,6 +50,7 @@ const isCurrent = (key, page) => key === page || (key === "portfolio" && CLIENT_
 export function Header({ locale, page }) {
   const t = UI[locale];
   const home = DIAGNOSIS_FIRST.includes(page);
+  const audience = audienceOf(page, locale);
   const links = home ? t.homeNav : t.nav.map(([key, label]) => [pathFor(key, locale), label, key]);
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -91,6 +94,7 @@ export function Header({ locale, page }) {
           <LanguageSwitch locale={locale} page={page} />
           {home
             ? <WhatsAppLink message={t.waDiagnosis} className="btn btn--sm head-diag" icon={false}><span className="head-diag__long">{t.ctaDiagnosis}</span><span className="head-diag__short">{t.ctaDiagnosisShort}</span></WhatsAppLink>
+            : audience ? <WhatsAppLink message={audience.waMessage} className="btn btn--sm" icon={false}>{audience.headerCta}</WhatsAppLink>
             : LANDING_FIRST.includes(page)
               ? <WhatsAppLink message={t.waLanding} className="btn btn--sm" icon={false}>{t.ctaLanding}</WhatsAppLink>
               : <WhatsAppLink message={t.waDefault} className="btn btn--sm" icon={false}>{t.cta}</WhatsAppLink>}
@@ -102,6 +106,7 @@ export function Header({ locale, page }) {
       {(home ? links : [[pathFor("home", locale), t.homeLabel, "home"], ...links]).map(([href, label, key]) => <a className="mm-link" href={href} aria-current={key && isCurrent(key, page) ? "page" : undefined} key={href}>{label}<IconArrow /></a>)}
       {home
         ? <WhatsAppLink message={t.waDiagnosis}>{t.ctaDiagnosisLong}</WhatsAppLink>
+        : audience ? <WhatsAppLink message={audience.waMessage}>{audience.ctaLabel}</WhatsAppLink>
         : LANDING_FIRST.includes(page)
           ? <WhatsAppLink message={t.waLanding}>{t.ctaLandingLong}</WhatsAppLink>
           : <WhatsAppLink message={t.waDefault}>{t.ctaWhatsApp}</WhatsAppLink>}
@@ -161,7 +166,7 @@ export function Footer({ locale, page }) {
             ))}
             <div className="site-foot__col">
               <h2>{f.contact}</h2>
-              <WhatsAppLink message={DIAGNOSIS_FIRST.includes(page) ? t.waDiagnosis : t.waDefault} className={null} icon={false}>WhatsApp</WhatsAppLink>
+              <WhatsAppLink message={DIAGNOSIS_FIRST.includes(page) ? t.waDiagnosis : audienceOf(page, locale)?.waMessage ?? t.waDefault} className={null} icon={false}>WhatsApp</WhatsAppLink>
               <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer">Instagram</a>
             </div>
           </div>

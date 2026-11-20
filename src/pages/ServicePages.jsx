@@ -1,4 +1,4 @@
-import { HOW_STEPS, LANDING_RECEIPT, UI } from "../home-content.mjs";
+import { HOME, HOW_STEPS, LANDING_RECEIPT, UI } from "../home-content.mjs";
 import { portfolioFor, servicesFor } from "../localized-content.mjs";
 import { PageShell, pathFor } from "../Layout.jsx";
 import {
@@ -149,6 +149,78 @@ export function LandingPage({ locale }) {
 
       <FaqSection eyebrow={service.faqTitle.eyebrow} title={service.faqTitle.title} items={service.faqs} />
       <CtaFinal title={service.final.title} text={service.final.text} note={t.safety}>
+        <WhatsAppLink message={service.waMessage}>{service.ctaLabel}</WhatsAppLink>
+      </CtaFinal>
+    </PageShell>
+  );
+}
+
+// Pages per audience (20/11): law firms and notary offices of the Federal District. The three steps, the four fronts
+// and the price card are the homepage's (HOME), so the offer is stated once; each page has its own pains, limits,
+// questions and WhatsApp message.
+export function AudiencePage({ locale, page }) {
+  const t = UI[locale];
+  const service = servicesFor(locale)[page];
+  const home = HOME[locale];
+  const { pains, limits, product } = service;
+  const price = home.offer.price;
+  return (
+    <PageShell locale={locale} page={page} whatsapp={{ message: service.waMessage }}>
+      <ServiceHero locale={locale} service={service}
+        actions={<><WhatsAppLink message={service.waMessage}>{service.ctaLabel}</WhatsAppLink><LinkArrow href="#como" icon="down">{service.secondaryLabel}</LinkArrow></>} />
+
+      <section className="section light" aria-labelledby="pains-title">
+        <div className="wrap">
+          <SectionHead eyebrow={pains.eyebrow} title={pains.title} id="pains-title" />
+          <CardGrid items={pains.items} />
+        </div>
+      </section>
+
+      <section className="section light section--alt" id="limites" aria-labelledby="limits-title">
+        <div className="wrap">
+          <SectionHead eyebrow={limits.eyebrow} title={limits.title} aside={limits.aside} id="limits-title" />
+          <div className="compare" data-reveal-group="">
+            {[limits.does, limits.doesNot].map(block => (
+              <div className="card" data-reveal="" key={block.badge}>
+                <span className="badge">{block.badge}</span><h3 className="h3">{block.title}</h3>
+                <ul>{block.items.map(item => <li key={item}>{item}</li>)}</ul>
+              </div>
+            ))}
+          </div>
+          {product && (
+            <div className="card card--wide audience-product" data-reveal="">
+              <div className="stack stack--sm"><p className="eyebrow">{product.eyebrow}</p><h3 className="h3">{product.title}</h3><p>{product.text}</p></div>
+              <LinkArrow href={product.link.href} icon="out" external>{product.link.label}</LinkArrow>
+            </div>
+          )}
+        </div>
+      </section>
+
+      <section className="section light" id="como" aria-labelledby="how-title">
+        <div className="wrap">
+          <SectionHead eyebrow={service.how.eyebrow} title={service.how.title} id="how-title" />
+          <Steps items={home.how.steps.map(([title, text]) => ({ title, text }))} />
+        </div>
+      </section>
+
+      <section className="section light section--flush" id="preco" aria-labelledby="offer-title">
+        <div className="wrap">
+          <hr className="divider" />
+          <SectionHead eyebrow={service.offer.eyebrow} title={service.offer.title} id="offer-title" />
+          <CardGrid items={home.offer.items.map(([title, text]) => ({ title, text }))} columns={2} />
+          <div className="card card--wide card--feature price-card audience-price" data-reveal="">
+            <div className="stack stack--sm">
+              <p className="eyebrow">{price.eyebrow}</p>
+              <h3 className="h3">{price.title}</h3>
+              <ul>{price.items.map(item => <li key={item}>{item}</li>)}</ul>
+            </div>
+            <WhatsAppLink message={service.waMessage}>{price.cta}</WhatsAppLink>
+          </div>
+        </div>
+      </section>
+
+      <FaqSection eyebrow={service.faqTitle.eyebrow} title={service.faqTitle.title} items={service.faqs} />
+      <CtaFinal title={service.final.title} text={service.final.text} note={home.final.note}>
         <WhatsAppLink message={service.waMessage}>{service.ctaLabel}</WhatsAppLink>
       </CtaFinal>
     </PageShell>

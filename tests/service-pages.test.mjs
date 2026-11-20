@@ -10,6 +10,24 @@ import { renderToString } from "react-dom/server";
 
 const servicePages = [
   {
+    path: "/advocacia/",
+    heading: "IA e WhatsApp para escritórios de advocacia do DF",
+    titlePattern: /IA e WhatsApp para escritórios de advocacia do DF/,
+    canonical: "https://tetelestai.tech/advocacia/",
+    shell: "/advocacia/index.html",
+    fixture: "law firms page",
+    contentPattern: /advogado/i,
+  },
+  {
+    path: "/cartorios/",
+    heading: "IA e WhatsApp para cartórios do DF",
+    titlePattern: /IA e WhatsApp para cartórios do DF/,
+    canonical: "https://tetelestai.tech/cartorios/",
+    shell: "/cartorios/index.html",
+    fixture: "notary offices page",
+    contentPattern: /escrevente/i,
+  },
+  {
     path: "/criacao-de-sites/",
     heading: "Criação de sites para empresas de todo o Brasil",
     titlePattern: /criação de sites/i,
@@ -155,6 +173,8 @@ test("the sitemap lists the homes, service pages and approved portfolio pages ex
     "https://tetelestai.tech/",
     "https://tetelestai.tech/en/",
     ...COMMERCIAL_TRANSLATIONS.map(pair=>`https://tetelestai.tech${pair.en}`),
+    "https://tetelestai.tech/advocacia/",
+    "https://tetelestai.tech/cartorios/",
     "https://tetelestai.tech/criacao-de-sites/",
     "https://tetelestai.tech/criacao-de-landing-pages/",
     "https://tetelestai.tech/projetos/",
@@ -170,6 +190,11 @@ test("unknown, malformed and asset paths never enter the service route fallback"
   for (const pathname of [
     "/unknown-service/",
     "/criacao-de-sites//",
+    "/advocacia//",
+    "/cartorios/missing",
+    "/en/advocacia/",
+    "/en/law-firms/missing",
+    "/en/notary-offices//",
     "/criacao-de-landing-pages//",
     "/criacao-de-sites/missing",
     "/criacao-de-landing-pages/missing",

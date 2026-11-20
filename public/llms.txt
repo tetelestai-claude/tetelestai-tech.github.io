@@ -18,6 +18,8 @@
 ## Pages (Portuguese)
 
 - [Home](https://tetelestai.tech/): AI and automation for law firms and notary offices in the Federal District, with a free diagnosis
+- [Advocacia](https://tetelestai.tech/advocacia/): AI and WhatsApp automation for law firms in the Federal District: what the agent does and does not do under OAB Provimento 205/2021
+- [Cartórios](https://tetelestai.tech/cartorios/): AI and WhatsApp automation for notary and registry offices in the Federal District, with the tools in the office's own account
 - [Criação de sites](https://tetelestai.tech/criacao-de-sites/): multi-page business websites, quoted per project
 - [Criação de landing pages](https://tetelestai.tech/criacao-de-landing-pages/): the landing page offer (R$ 297 + R$ 97/month)
 - [Projetos](https://tetelestai.tech/projetos/): client websites and the De Rolê and Tempo de Recarga iOS apps
@@ -30,6 +32,8 @@
 ## Pages (English)
 
 - [Home](https://tetelestai.tech/en/)
+- [Law firms](https://tetelestai.tech/en/law-firms/)
+- [Notary offices](https://tetelestai.tech/en/notary-offices/)
 - [Website development](https://tetelestai.tech/en/website-development/)
 - [Landing pages](https://tetelestai.tech/en/landing-pages/)
 - [Projects](https://tetelestai.tech/en/projects/)

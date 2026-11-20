@@ -212,8 +212,8 @@ test('the removed pages are static noindex redirect pages to the home of the sam
   }
   const sitemap = await read('public/sitemap.xml');
   for (const gone of ['carreira-internacional', 'capacitacao-em-ia', 'international-career', 'ai-training', 'experimento']) assert.ok(!sitemap.includes(gone), gone);
-  assert.match(sitemap, /<loc>https:\/\/tetelestai\.tech\/<\/loc><lastmod>2026-11-18<\/lastmod>/);
-  assert.match(sitemap, /<loc>https:\/\/tetelestai\.tech\/en\/<\/loc><lastmod>2026-11-18<\/lastmod>/);
+  assert.match(sitemap, /<loc>https:\/\/tetelestai\.tech\/<\/loc><lastmod>2026-11-20<\/lastmod>/);
+  assert.match(sitemap, /<loc>https:\/\/tetelestai\.tech\/en\/<\/loc><lastmod>2026-11-20<\/lastmod>/);
   const llms = await read('public/llms.txt');
   assert.doesNotMatch(llms, /Carlos|Viegas|Gabriela|Banco do Brasil|linkedin|carreira|career|international-career|capacitacao|ai-training|mentor|IA na Prática/i);
   for (const fact of ['Federal District', 'R$ 2,500', 'R$ 500', 'Provimento 205/2021', 'free diagnosis', '14 years of technical leadership in banking']) assert.ok(llms.includes(fact), fact);

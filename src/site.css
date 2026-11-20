@@ -225,6 +225,7 @@ html:not(.js) .site-head{background:rgba(0,12,25,.9);border-bottom-color:var(--l
 .card--feature{border-color:var(--detail)}
 .card--wide{padding:clamp(28px,4vw,48px);flex-direction:row;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:24px 48px}
 .card--wide > .stack{flex:1 1 480px;min-width:0}
+.audience-product,.audience-price{margin-top:24px}
 .badge{align-self:flex-start;display:inline-flex;align-items:center;min-height:28px;padding:0 12px;border-radius:999px;font-family:var(--label);font-size:10px;letter-spacing:.12em;text-transform:uppercase;background:color-mix(in srgb,var(--detail) 12%,transparent);color:var(--detail)}
 /* Cards lift on hover, as in version 1 (Carlos asked for this movement back on 23/10). */
 @media (hover:hover) and (pointer:fine){
@@ -509,7 +510,7 @@ body:has(.analytics-consent) .wa-float{display:none}
 .hm-ficha__tag{display:flex;justify-content:space-between;gap:12px;font-size:.72rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-muted)}
 .hm-msg{margin-top:14px;max-width:92%;padding:12px 14px;border-radius:4px 14px 14px 14px;background:var(--paper-2);font-size:.96rem;color:var(--ink)}
 .hm-msg small{display:block;margin-top:4px;font-size:.74rem;color:var(--ink-muted)}
-.hm-ficha h3{margin-top:20px;font-family:var(--serif);font-weight:600;font-size:1.22rem;letter-spacing:0;color:var(--ink)}
+.hm-ficha__title{margin-top:20px;font-family:var(--serif);font-weight:600;font-size:1.22rem;letter-spacing:0;color:var(--ink)}
 .hm-ficha dl{margin:8px 0 0}
 .hm-row{display:grid;grid-template-columns:7.2em 1fr 22px;gap:10px;align-items:center;padding:11px 0;border-top:1px solid var(--ink-line);font-size:.95rem}
 .hm-row dt{color:var(--ink-muted)}

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { HOME, UI } from "../home-content.mjs";
 import { APPS, CLIENT_PROJECTS } from "../portfolio-content.mjs";
-import { PageShell } from "../Layout.jsx";
+import { PageShell, pathFor } from "../Layout.jsx";
 import { WhatsAppLink } from "../ui.jsx";
 
 // Homepage approved on 2026-11-18 (prototype site-novo-2026-11/fonte/prototipo-home.html): navy opening, closing
@@ -29,7 +29,8 @@ function Ficha({ ficha }) {
       </div>
       <div className="hm-ficha__tag"><span>{ficha.tagLabel}</span><span>{example.when}</span></div>
       <p className="hm-msg">{example.message}<small>{ficha.messageNote}</small></p>
-      <h3>{ficha.title}</h3>
+      {/* A paragraph, not a heading: the record comes before the first h2, and an h3 here would skip a level. */}
+      <p className="hm-ficha__title">{ficha.title}</p>
       <dl key={active}>
         {ficha.terms.map((term, index) => <div className="hm-row" key={term}><dt>{term}</dt><dd>{example.values[index]}</dd><Check /></div>)}
       </dl>
@@ -87,6 +88,7 @@ export function HomePage({ locale }) {
                 <h3>{card.title}</h3>
                 <ul>{card.items.map(([title, text]) => <li key={title}><b>{title}</b><span>{text}</span></li>)}</ul>
                 <p className="hm-regra"><b>{card.rule[0]}</b> {card.rule[1]}</p>
+                {card.link && <p className="hm-more"><a href={pathFor(card.link.key, locale)}>{card.link.label}</a></p>}
               </article>
             ))}
           </div>
