@@ -304,6 +304,18 @@ test("emits 404.html with the site's own 404 page for GitHub Pages", async () =>
   assert.equal((html.match(/<h1\b/g) ?? []).length, 1);
   assert.match(html, /<h1>Este endereço não existe<\/h1>/);
   assert.match(html, /<a\b[^>]*href="\/"[^>]*>(?:(?!<\/a>)[\s\S])*Ir para o início/);
+  // Since 20/11 it also gives somewhere to go: the diagnosis request and four pages, one card each (a full row of 4, 2 or 1).
+  const section = html.match(/<section class="doc-hero light not-found">[\s\S]*?<\/section>/)[0];
+  const cards = [...section.matchAll(/<a class="card not-found__link" href="([^"]+)"/g)].map(match => match[1]);
+  assert.deepEqual(cards, ["/advocacia/", "/cartorios/", "/criacao-de-landing-pages/", "/projetos/"]);
+  assert.match(section, /href="https:\/\/wa\.me\/556184711930\?text=Ol%C3%A1!%20Quero%20o%20diagn%C3%B3stico%20de%20IA%20e%20automa%C3%A7%C3%A3o\."[^>]*>(?:(?!<\/a>)[\s\S])*Pedir diagnóstico grátis no WhatsApp/);
+  // The only ornament is the approved one-color seal, as a mask: no new image, nothing for assistive technology.
+  assert.match(section, /<span class="not-found__seal" aria-hidden="true"><\/span>/);
+  assert.doesNotMatch(section, /<img\b|<svg\b(?![^>]*aria-hidden)/);
+  const css = await readFile(new URL("../src/site.css", import.meta.url), "utf8");
+  assert.match(css, /\.not-found__seal\{[^}]*mask:url\(\/assets\/tetelestai-selo\.svg\)/);
+  await access(new URL("../dist/client/assets/tetelestai-selo.svg", import.meta.url));
+  assert.doesNotMatch(css, /\.not-found[^{]*\{[^}]*animation/);
   assert.match(html, /<footer\b/);
   // Served at any depth, so every local asset is referenced from the root, never relative to the address.
   const refs = [...html.matchAll(/\b(?:src|href)="([^"]+)"/g)].map(match => match[1]);
