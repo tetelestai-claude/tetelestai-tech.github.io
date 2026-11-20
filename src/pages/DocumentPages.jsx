@@ -3,7 +3,7 @@ import { UI } from "../home-content.mjs";
 import { LEGAL_CONTENT, PRIVACY_CONTACT } from "../legal-content.mjs";
 import { RECARGA_PAGES, RECARGA_UPDATED } from "../recarga-content.mjs";
 import { PageShell, SupportHeader, pathFor } from "../Layout.jsx";
-import { IconWhatsApp, LinkArrow } from "../ui.jsx";
+import { IconWhatsApp, LinkArrow, WhatsAppLink } from "../ui.jsx";
 
 // Legal and support texts are rendered verbatim from their content modules.
 function DocHero({ eyebrow, title, updated, dateTime, intro }) {
@@ -121,14 +121,33 @@ export function RecargaPage({ page }) {
 
 export function NotFoundPage({ locale }) {
   const t = UI[locale].notFound;
+  const message = UI[locale].waDiagnosis;
+  // The 404 gives the visitor somewhere to go: the way back, the diagnosis request and the four pages people look for.
+  // The one-color seal (traced from the protected symbol, approved on 18/11) is the page's only ornament.
   return (
-    <PageShell locale={locale} page="notFound" sticky={null}>
+    <PageShell locale={locale} page="notFound" sticky={null} whatsapp={{ message }}>
       <section className="doc-hero light not-found">
-        <div className="wrap doc-hero__in">
-          <p className="eyebrow">{t.kicker}</p>
-          <h1>{t.title}</h1>
-          <p className="lead">{t.text}</p>
-          <LinkArrow href={pathFor("home", locale)} icon="back" className="link link--arrow link--teal">{t.back}</LinkArrow>
+        <div className="wrap not-found__in">
+          <div className="not-found__top">
+            <div className="not-found__copy">
+              <p className="eyebrow">{t.kicker}</p>
+              <h1>{t.title}</h1>
+              <p className="lead">{t.text}</p>
+              <div className="not-found__actions">
+                <WhatsAppLink message={message}>{t.cta}</WhatsAppLink>
+                <LinkArrow href={pathFor("home", locale)} icon="back" className="link link--arrow link--teal">{t.back}</LinkArrow>
+              </div>
+            </div>
+            <span className="not-found__seal" aria-hidden="true" />
+          </div>
+          <nav className="not-found__links" aria-label={t.linksLabel}>
+            {t.links.map(link => (
+              <a className="card not-found__link" href={pathFor(link.key, locale)} key={link.key}>
+                <strong className="h3">{link.title}</strong>
+                <span>{link.text}</span>
+              </a>
+            ))}
+          </nav>
         </div>
       </section>
     </PageShell>
