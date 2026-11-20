@@ -109,7 +109,8 @@ export function pageStructuredData({ page, locale, title, description }) {
       serviceType: service.label,
       description: service.intro,
       provider: { "@id": ORGANIZATION_ID },
-      areaServed: AREA_SERVED,
+      // Audience pages (20/11) serve the Federal District, like the homepage; the other services, Brazil.
+      areaServed: service.serviceArea ? { "@type": "AdministrativeArea", name: service.serviceArea } : AREA_SERVED,
     };
     if (page === "landingPages") node.offers = { "@type": "Offer", price: service.price, priceCurrency: "BRL", url, availability: "https://schema.org/InStock" };
     graph.push(node);

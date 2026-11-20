@@ -1,8 +1,10 @@
 import { SERVICE_PAGES } from './service-content.mjs';
 import { PORTFOLIO_PAGES } from './portfolio-content.mjs';
+import { AUDIENCE_PAGES } from './audience-content.mjs';
 
 // English equivalents of the Portuguese commercial pages (redesign 2026-10).
 export const EN_SERVICE_PAGES = {
+  ...AUDIENCE_PAGES.en,
   sites: {
     path: '/en/website-development/',
     label: 'Website development',

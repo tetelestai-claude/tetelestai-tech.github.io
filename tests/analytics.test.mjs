@@ -27,13 +27,13 @@ function browser(path = "/", hostname = "tetelestai.tech", search = "") {
   return { controller, win, doc, stored, scripts, cookies, timers, events, setNow: value => { now = value; }, get reloads() { return reloads; } };
 }
 
-test("only the eighteen commercial pages and their explicit aliases qualify", () => {
-  for (const path of ["/", "/en/", "/criacao-de-sites/", "/criacao-de-landing-pages/", "/projetos/", "/projetos/infinity-car-studio/", "/projetos/bolachinhas-da-vovo-juju/", "/projetos/afeto-nobre/", "/projetos/lalelis/", "/projetos/respeitavel-feijuca/", "/en/projects/afeto-nobre/", "/en/projects/lalelis/", "/en/projects/respeitavel-feijuca/", "/en/website-development/", "/en/landing-pages/", "/en/projects/", "/en/projects/infinity-car-studio/", "/en/projects/bolachinhas-da-vovo-juju/"]) {
+test("only the twenty-two commercial pages and their explicit aliases qualify", () => {
+  for (const path of ["/", "/en/", "/advocacia/", "/cartorios/", "/en/law-firms/", "/en/notary-offices/", "/criacao-de-sites/", "/criacao-de-landing-pages/", "/projetos/", "/projetos/infinity-car-studio/", "/projetos/bolachinhas-da-vovo-juju/", "/projetos/afeto-nobre/", "/projetos/lalelis/", "/projetos/respeitavel-feijuca/", "/en/projects/afeto-nobre/", "/en/projects/lalelis/", "/en/projects/respeitavel-feijuca/", "/en/website-development/", "/en/landing-pages/", "/en/projects/", "/en/projects/infinity-car-studio/", "/en/projects/bolachinhas-da-vovo-juju/"]) {
     assert.equal(measurementPath(path), path);
     assert.equal(measurementPath(`${path}index.html`), path);
     if (path !== "/") assert.equal(measurementPath(path.slice(0, -1)), path);
   }
-  for (const path of ["/projetos/afeto-nobre/extra/", "/projetos/lalelis//", "/recarga/", "/privacidade/", "/en/privacy/", "/missing/", "/en//", "/criacao-de-sites/missing/index.html", "/carreira-internacional/missing", "/capacitacao-em-ia//",
+  for (const path of ["/advocacia/extra/", "/cartorios//", "/en/advocacia/", "/en/cartorios/", "/law-firms/", "/projetos/afeto-nobre/extra/", "/projetos/lalelis//", "/recarga/", "/privacidade/", "/en/privacy/", "/missing/", "/en//", "/criacao-de-sites/missing/index.html", "/carreira-internacional/missing", "/capacitacao-em-ia//",
     // Pages removed on 2026-11-18 (static redirect pages now): they are never measured.
     "/carreira-internacional/", "/capacitacao-em-ia/", "/en/international-career/", "/en/ai-training/", "/experimento/"]) assert.equal(measurementPath(path), null);
 });

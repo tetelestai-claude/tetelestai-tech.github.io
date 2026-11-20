@@ -8,6 +8,8 @@ import worker from '../worker/index.js';
 import { measurementPath } from '../src/analytics.mjs';
 
 export const pairs = [
+  ['/advocacia/','/en/law-firms/'],
+  ['/cartorios/','/en/notary-offices/'],
   ['/criacao-de-sites/','/en/website-development/'],
   ['/criacao-de-landing-pages/','/en/landing-pages/'],
   ['/projetos/','/en/projects/'],
@@ -25,9 +27,9 @@ test('English home links the English landing page and projects in its footer and
     const {App}=await server.ssrLoadModule('/src/App.jsx');
     const render=path=>renderToStaticMarkup(createElement(App,{pathname:path}));
     const home=render('/en/');
-    // Since 18/11 the homepage links only the landing page and the projects (footer); the other pages stay reachable from them.
-    for (const en of ['/en/landing-pages/','/en/projects/']) assert.ok(home.includes(`href="${en}"`),`Missing English footer link ${en}`);
-    assert.ok(!/href="\/(?:criacao|projetos|carreira|capacitacao)/.test(home.replace(/href="\/" lang="pt-BR"/g,'')),'The English home links no Portuguese commercial page');
+    // Since 18/11 the homepage links the landing page and the projects in its footer; since 20/11 its audience cards link the pages for law firms and notary offices.
+    for (const en of ['/en/landing-pages/','/en/projects/','/en/law-firms/','/en/notary-offices/']) assert.ok(home.includes(`href="${en}"`),`Missing English footer link ${en}`);
+    assert.ok(!/href="\/(?:criacao|projetos|carreira|capacitacao|advocacia|cartorios)/.test(home.replace(/href="\/" lang="pt-BR"/g,'')),'The English home links no Portuguese commercial page');
     for (const [pt,en] of pairs) {
       const english=render(en), portuguese=render(pt);
       assert.ok(!english.includes('This address does not exist'),en);

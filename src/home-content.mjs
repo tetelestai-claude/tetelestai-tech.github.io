@@ -171,6 +171,8 @@ export const HOME = {
             ["A equipe redigita o que o cliente já enviou.", "Documentos de rotina preenchidos a partir do que foi coletado, para a equipe conferir."],
           ],
           rule: ["Regra da OAB respeitada.", "O agente não responde consulta jurídica e não fala de honorários (Provimento 205/2021)."],
+          // Page of this audience (20/11).
+          link: { label: "Ver a página para escritórios de advocacia", key: "advocacia" },
         },
         {
           title: "Cartório",
@@ -180,6 +182,8 @@ export const HOME = {
             ["Os atos são marcados por telefone.", "Agendamento pelo WhatsApp e painel do dia para a equipe."],
           ],
           rule: ["O cartório não cobra nada em nosso nome.", "As ferramentas ficam na conta da serventia, sob a responsabilidade do titular."],
+          // Page of this audience (20/11).
+          link: { label: "Ver a página para cartórios", key: "cartorios" },
         },
       ],
     },
@@ -290,6 +294,8 @@ export const HOME = {
             ["The team retypes what the client already sent.", "Routine documents filled in from what was collected, for the team to check."],
           ],
           rule: ["Brazilian Bar Association (OAB) rule respected.", "The agent does not answer legal consultations and does not discuss fees (Provimento 205/2021)."],
+          // Page of this audience (20/11).
+          link: { label: "See the page for law firms", key: "advocacia" },
         },
         {
           title: "Notary and registry office",
@@ -299,6 +305,8 @@ export const HOME = {
             ["Notarial acts are booked by phone.", "Scheduling over WhatsApp and a daily dashboard for the team."],
           ],
           rule: ["The notary office charges nothing in our name.", "The tools stay in the account of the office (serventia), under the responsibility of its titular notary."],
+          // Page of this audience (20/11).
+          link: { label: "See the page for notary offices", key: "cartorios" },
         },
       ],
     },
