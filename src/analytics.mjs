@@ -1,6 +1,6 @@
 export const MEASUREMENT_ID = "G-VKJKP1MBYF";
 export const CONSENT_KEY = "tetelestai:analytics-consent:v1";
-export const CONSENT_POLICY_VERSION = 4;
+export const CONSENT_POLICY_VERSION = 5;
 export const CONSENT_DURATION = 180 * 24 * 60 * 60 * 1000;
 export const PREFERENCES_EVENT = "tetelestai:cookie-preferences";
 export const TEST_MODE_KEY = "tetelestai:test-mode:v1";
@@ -10,6 +10,22 @@ const PAGE_PATHS = ["/", "/en/", "/advocacia/", "/cartorios/", "/en/law-firms/",
 export function measurementPath(pathname) {
   return PAGE_PATHS.find(path => pathname === path || pathname === `${path}index.html` ||
     (path !== "/" && pathname === path.slice(0, -1))) ?? null;
+}
+
+// Campaign origin (policy v5, 20/11): only these three tags, each a single short label of letters, digits, dot, hyphen
+// and underscore, so an e-mail address, a phone number with symbols or free text never reaches Analytics. Every other
+// query parameter (gclid, fbclid, search terms) is dropped. Without a valid utm_source the address carries no campaign.
+const CAMPAIGN_KEYS = ["utm_source", "utm_medium", "utm_campaign"];
+export function campaignQuery(search) {
+  try {
+    const params = new URLSearchParams(search ?? "");
+    const kept = [];
+    for (const key of CAMPAIGN_KEYS) {
+      const values = params.getAll(key);
+      if (values.length === 1 && /^[A-Za-z0-9._-]{1,60}$/.test(values[0])) kept.push(`${key}=${values[0]}`);
+    }
+    return kept[0]?.startsWith("utm_source=") ? `?${kept.join("&")}` : "";
+  } catch { return ""; }
 }
 
 function referrerOrigin(value) {
@@ -27,6 +43,7 @@ export function createAnalyticsController(win, doc, now = Date.now) {
   let started = false;
   let blocked = false;
   let modeAtStart;
+  let campaign = "";
   let modeCommandHandled = false;
   let modeError = false;
   let modeCommand = null;
@@ -101,7 +118,7 @@ export function createAnalyticsController(win, doc, now = Date.now) {
 
   function context(path) {
     return {
-      page_location: `https://tetelestai.tech${path}`,
+      page_location: `https://tetelestai.tech${path}${campaign}`,
       page_referrer: referrerOrigin(doc.referrer),
       page_title: doc.title,
       site_language: path.startsWith("/en/") ? "en" : "pt",
@@ -129,6 +146,8 @@ export function createAnalyticsController(win, doc, now = Date.now) {
     timer = win.setTimeout(sync, Math.min(consent.expiresAt - now(), 2_147_483_647));
     if (started) return;
     modeAtStart = mode;
+    // Read once, on the page where the tag starts: Analytics keeps the campaign for the rest of the session.
+    campaign = campaignQuery(win.location.search);
     started = true;
     win[disableKey] = false;
     win.dataLayer = win.dataLayer || [];

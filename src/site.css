@@ -359,6 +359,9 @@ html:not(.js) .site-head{background:rgba(0,12,25,.9);border-bottom-color:var(--l
 .cta-final .h2{font-size:clamp(34px,4.4vw,58px);max-width:780px;color:var(--text)}
 .cta-final .lead{text-align:center}
 .note{font-size:13px;color:var(--muted)}
+.contact-alt{display:flex;flex-direction:column;gap:6px;max-width:40em;margin-inline:auto;font-size:.9rem;line-height:1.5;color:var(--muted);text-align:center}
+.contact-alt a{color:var(--link);text-decoration:underline;text-underline-offset:3px;overflow-wrap:anywhere}
+.contact-alt a:focus-visible{outline:2px solid var(--cyan);outline-offset:3px;border-radius:2px}
 
 /* ---------- Footer ---------- */
 .site-foot{background:var(--navy);border-top:1px solid var(--line);color:var(--muted)}

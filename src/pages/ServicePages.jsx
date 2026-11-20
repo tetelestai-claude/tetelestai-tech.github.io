@@ -90,7 +90,7 @@ export function SitesPage({ locale }) {
       </section>
 
       <FaqSection eyebrow={service.faqTitle.eyebrow} title={service.faqTitle.title} items={service.faqs} />
-      <CtaFinal title={service.final.title} text={service.final.text} note={t.safety}>
+      <CtaFinal title={service.final.title} text={service.final.text} note={t.safety} locale={locale}>
         <WhatsAppLink message={service.waMessage}>{service.ctaLabel}</WhatsAppLink>
       </CtaFinal>
     </PageShell>
@@ -148,7 +148,7 @@ export function LandingPage({ locale }) {
       </section>
 
       <FaqSection eyebrow={service.faqTitle.eyebrow} title={service.faqTitle.title} items={service.faqs} />
-      <CtaFinal title={service.final.title} text={service.final.text} note={t.safety}>
+      <CtaFinal title={service.final.title} text={service.final.text} note={t.safety} locale={locale}>
         <WhatsAppLink message={service.waMessage}>{service.ctaLabel}</WhatsAppLink>
       </CtaFinal>
     </PageShell>
@@ -220,7 +220,7 @@ export function AudiencePage({ locale, page }) {
       </section>
 
       <FaqSection eyebrow={service.faqTitle.eyebrow} title={service.faqTitle.title} items={service.faqs} />
-      <CtaFinal title={service.final.title} text={service.final.text} note={home.final.note}>
+      <CtaFinal title={service.final.title} text={service.final.text} note={home.final.note} locale={locale} agent>
         <WhatsAppLink message={service.waMessage}>{service.ctaLabel}</WhatsAppLink>
       </CtaFinal>
     </PageShell>

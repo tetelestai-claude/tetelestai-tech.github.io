@@ -3,7 +3,7 @@ import { existsSync } from "node:fs";
 import { readFile } from "node:fs/promises";
 import test from "node:test";
 import { AUDIENCE_PAGES } from "../src/audience-content.mjs";
-import { HOME } from "../src/home-content.mjs";
+import { HOME, UI } from "../src/home-content.mjs";
 import { measurementPath } from "../src/analytics.mjs";
 
 // Pages per audience approved by Carlos on 2026-11-20: law firms and notary offices of the Federal District (PT/EN).
@@ -118,4 +118,28 @@ test("the site answers the default icon requests with the protected symbol", asy
   assert.equal(touch[25], 2, "opaque RGB: iOS paints transparency black");
   assert.ok(touch.length < 30000);
   assert.ok(existsSync(new URL("../dist/client/advocacia/index.html", import.meta.url)));
+});
+
+// 2026-11-20: under the final button, the e-mail as a second way in (every commercial page) and who answers first on
+// WhatsApp (only where the request is the diagnosis: the home and the audience pages).
+test("the final call offers the e-mail everywhere and names the assistant only on the diagnosis pages", async () => {
+  const sitemap = await readFile(new URL("../dist/client/sitemap.xml", import.meta.url), "utf8");
+  const paths = [...sitemap.matchAll(/<loc>https:\/\/tetelestai\.tech([^<]*)<\/loc>/g)].map(match => match[1]);
+  assert.equal(paths.length, 22);
+  const diagnosis = new Set(["/", "/en/", "/advocacia/", "/cartorios/", "/en/law-firms/", "/en/notary-offices/"]);
+  for (const path of paths) {
+    const html = await built(path);
+    const locale = path.startsWith("/en/") ? "en" : "pt";
+    const final = html.match(/<section class="(?:cta-final dark|hm-sec hm-final[^"]*)"[\s\S]*?<\/section>/)?.[0];
+    assert.ok(final, `${path}: final call`);
+    const alt = final.match(/<p class="contact-alt">[\s\S]*?<\/p>/)?.[0];
+    assert.ok(alt, `${path}: e-mail under the final button`);
+    assert.match(alt, /<a href="mailto:contato@tetelestai\.tech">contato@tetelestai\.tech<\/a>/);
+    assert.ok(text(alt).includes(UI[locale].emailAlt), `${path}: e-mail label`);
+    assert.equal(text(alt).includes(UI[locale].agentNote), diagnosis.has(path), `${path}: sentence about the assistant`);
+    assert.ok(final.indexOf("wa.me/556184711930") < final.indexOf("contact-alt"), `${path}: WhatsApp stays the first action`);
+    assert.equal((final.match(/mailto:/g) ?? []).length, 1);
+  }
+  // The sentence promises nothing new: an AI assistant answers first and a person is available on request (privacy notice).
+  for (const locale of ["pt", "en"]) assert.doesNotMatch(UI[locale].agentNote, /client|garant|guarant|24|imediat|instant/i);
 });

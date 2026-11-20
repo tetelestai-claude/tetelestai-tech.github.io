@@ -28,6 +28,9 @@ export const UI = {
     ctaDiagnosisShort: "Diagnóstico",
     ctaDiagnosisLong: "Pedir diagnóstico grátis no WhatsApp",
     waDiagnosis: "Olá! Quero o diagnóstico de IA e automação.",
+    // Under the final button (20/11): the e-mail as a second way in, and who answers first on WhatsApp (diagnosis pages).
+    emailAlt: "Prefere e-mail?",
+    agentNote: "Quem responde primeiro é a nossa assistente virtual de IA, o mesmo tipo de atendimento que oferecemos. Você pode pedir atendimento humano a qualquer momento.",
     // Landing page offer (R$ 297 + R$ 97/month since 09/11), kept on the landing page's own page.
     ctaLanding: "Landing page R$ 297 + R$ 97/mês",
     ctaLandingLong: "Quero minha landing page",
@@ -92,6 +95,8 @@ export const UI = {
     ctaDiagnosisShort: "Diagnosis",
     ctaDiagnosisLong: "Request a free diagnosis on WhatsApp",
     waDiagnosis: "Hello! I'd like the AI and automation diagnosis.",
+    emailAlt: "Prefer email?",
+    agentNote: "The first reply comes from our AI virtual assistant, the same kind of service we offer. You can ask for a person at any time.",
     ctaLanding: "Landing page R$ 297 + R$ 97/month",
     ctaLandingLong: "I want my landing page",
     waLanding: "Hi! I'd like the R$ 297 + R$ 97/month landing page.",

@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { createAnalyticsController, CONSENT_KEY, CONSENT_DURATION, MEASUREMENT_ID, measurementPath } from "../src/analytics.mjs";
+import { campaignQuery, createAnalyticsController, CONSENT_KEY, CONSENT_DURATION, MEASUREMENT_ID, measurementPath } from "../src/analytics.mjs";
 
 function browser(path = "/", hostname = "tetelestai.tech", search = "") {
   let now = 1000;
@@ -180,14 +180,14 @@ test("malformed consent and storage failures fail closed", () => {
   b.win.localStorage.setItem = () => { throw Error("denied"); };
   assert.equal(b.controller.choose("accepted"), false);
   assert.equal(b.scripts.length, 0);
-  b.stored.set(CONSENT_KEY, JSON.stringify({ choice: "accepted", expiresAt: 10000, policyVersion: 4 }));
+  b.stored.set(CONSENT_KEY, JSON.stringify({ choice: "accepted", expiresAt: 10000, policyVersion: 5 }));
   b.controller.sync();
   assert.equal(b.scripts.length, 0, "readable but unwritable storage must not enable tracking");
 });
 
 test("returning visitors receive only the remaining consent duration for cookies", () => {
   const b = browser();
-  b.stored.set(CONSENT_KEY, JSON.stringify({ choice: "accepted", expiresAt: 1000 + 3600 * 1000, policyVersion: 4 }));
+  b.stored.set(CONSENT_KEY, JSON.stringify({ choice: "accepted", expiresAt: 1000 + 3600 * 1000, policyVersion: 5 }));
   b.controller.sync();
   const config = b.win.dataLayer.map(v => Array.from(v)).find(v => v[0] === "config")[2];
   assert.equal(config.cookie_expires, 3600);
@@ -235,7 +235,7 @@ test("earlier acceptances do not authorize the expanded scope until explicit con
   assert.equal(b.scripts.length, 0);
   assert.deepEqual(b.events(), []);
   assert.equal(b.controller.choose("accepted"), true);
-  assert.equal(JSON.parse(b.stored.get(CONSENT_KEY)).policyVersion, 4);
+  assert.equal(JSON.parse(b.stored.get(CONSENT_KEY)).policyVersion, 5);
   assert.equal(b.scripts.length, 1);
   assert.deepEqual(b.events().map(e => e[1]), ["page_view"]);
 });
@@ -269,7 +269,7 @@ test("service pages send only the existing minimal events after acceptance", () 
 });
 
 test("unknown acceptance policy versions cannot enable tracking", () => {
-  for (const policyVersion of [1, 2, 3, 99, "3", "4", null]) {
+  for (const policyVersion of [1, 2, 3, 4, 99, "3", "4", "5", null]) {
     const b = browser();
     b.stored.set(CONSENT_KEY, JSON.stringify({ choice: "accepted", expiresAt: 10000, policyVersion }));
     b.controller.sync();
@@ -329,7 +329,7 @@ test("De Rolê clicks use their own app ID and retain consent and test separatio
   assert.deepEqual(b.events(), []);
 });
 
-test("video scope requires a fresh acceptance of v4 but preserves a valid v3 refusal", () => {
+test("a wider scope requires a fresh acceptance of the current policy but preserves a valid v3 refusal", () => {
   const accepted = browser("/projetos/");
   const oldAcceptance = JSON.stringify({ choice: "accepted", expiresAt: 10000, policyVersion: 3 });
   accepted.stored.set(CONSENT_KEY, oldAcceptance);
@@ -338,7 +338,7 @@ test("video scope requires a fresh acceptance of v4 but preserves a valid v3 ref
   assert.equal(accepted.controller.choice(), null);
   assert.equal(accepted.stored.get(CONSENT_KEY), oldAcceptance, "inspection must not silently renew consent");
   assert.equal(accepted.controller.choose("accepted"), true);
-  assert.equal(JSON.parse(accepted.stored.get(CONSENT_KEY)).policyVersion, 4);
+  assert.equal(JSON.parse(accepted.stored.get(CONSENT_KEY)).policyVersion, 5);
   assert.deepEqual(accepted.events().map(e => e[1]), ["page_view"], "previous clicks must not be replayed");
 
   const refused = browser("/projetos/");
@@ -481,4 +481,59 @@ test("WhatsApp clicks tell the landing page apart from quotes, and the floating 
   assert.equal(quote[2].contact_intent, "orcamento");
   assert.equal(quote[2].contact_placement, "floating");
   assert.equal(unknown[2].contact_intent, "orcamento", "unexpected values fall back to a quote");
+});
+
+test("campaign origin keeps only three short utm labels and needs a source", () => {
+  assert.equal(campaignQuery("?utm_source=instagram&utm_medium=social&utm_campaign=diagnostico-nov"), "?utm_source=instagram&utm_medium=social&utm_campaign=diagnostico-nov");
+  assert.equal(campaignQuery("?utm_campaign=x&utm_source=whatsapp"), "?utm_source=whatsapp&utm_campaign=x", "fixed order, whatever the link order");
+  assert.equal(campaignQuery("?utm_source=google&gclid=abc&fbclid=def&utm_term=advogado&utm_content=v1&q=nome"), "?utm_source=google");
+  // Personal data, free text, repeated or oversized values never pass.
+  assert.equal(campaignQuery("?utm_source=maria%40example.com&utm_medium=email"), "");
+  assert.equal(campaignQuery("?utm_source=google&utm_campaign=Jo%C3%A3o%20Silva"), "?utm_source=google");
+  assert.equal(campaignQuery("?utm_source=a&utm_source=b&utm_medium=cpc"), "");
+  assert.equal(campaignQuery(`?utm_source=${"a".repeat(61)}`), "");
+  assert.equal(campaignQuery("?utm_medium=cpc&utm_campaign=x"), "", "no source, no campaign");
+  for (const empty of ["", "?", "?utm_source=", undefined, null]) assert.equal(campaignQuery(empty), "");
+});
+
+test("campaign origin reaches Analytics only after acceptance, on the fixed page address", () => {
+  const b = browser("/advocacia/", "tetelestai.tech", "?utm_source=instagram&utm_medium=social&utm_campaign=teste-nicho&gclid=secret&nome=Maria");
+  b.controller.sync();
+  assert.equal(b.scripts.length, 0);
+  assert.equal(b.win.dataLayer, undefined, "nothing is read into Analytics before the choice");
+  assert.equal(b.controller.choose("accepted"), true);
+  b.controller.trackWhatsApp("hero", "diagnostico");
+  const location = "https://tetelestai.tech/advocacia/?utm_source=instagram&utm_medium=social&utm_campaign=teste-nicho";
+  const config = b.win.dataLayer.map(v => Array.from(v)).find(v => v[0] === "config")[2];
+  assert.equal(config.page_location, location);
+  for (const [, , params] of b.events()) assert.equal(params.page_location, location);
+  assert.doesNotMatch(JSON.stringify(b.win.dataLayer), /gclid|secret|Maria|nome=/);
+
+  const refused = browser("/advocacia/", "tetelestai.tech", "?utm_source=instagram");
+  refused.controller.choose("rejected");
+  refused.controller.trackWhatsApp();
+  assert.deepEqual(refused.events(), []);
+
+  const plain = browser("/advocacia/");
+  plain.controller.choose("accepted");
+  assert.equal(plain.events()[0][2].page_location, "https://tetelestai.tech/advocacia/");
+});
+
+test("an acceptance given before campaign origin (v4) needs a new confirmation; a v4 refusal stays", () => {
+  const accepted = browser("/", "tetelestai.tech", "?utm_source=instagram");
+  const old = JSON.stringify({ choice: "accepted", expiresAt: 10000, policyVersion: 4 });
+  accepted.stored.set(CONSENT_KEY, old);
+  accepted.controller.sync();
+  assert.equal(accepted.controller.choice(), null);
+  assert.equal(accepted.scripts.length, 0);
+  assert.equal(accepted.stored.get(CONSENT_KEY), old);
+  assert.equal(accepted.controller.choose("accepted"), true);
+  assert.equal(JSON.parse(accepted.stored.get(CONSENT_KEY)).policyVersion, 5);
+
+  const refused = browser("/");
+  const refusal = JSON.stringify({ choice: "rejected", expiresAt: 10000, policyVersion: 4 });
+  refused.stored.set(CONSENT_KEY, refusal);
+  refused.controller.sync();
+  assert.equal(refused.controller.choice(), "rejected");
+  assert.equal(refused.stored.get(CONSENT_KEY), refusal);
 });
