@@ -2,7 +2,7 @@ import { useState } from "react";
 import { HOME, UI } from "../home-content.mjs";
 import { APPS, CLIENT_PROJECTS } from "../portfolio-content.mjs";
 import { PageShell, pathFor } from "../Layout.jsx";
-import { WhatsAppLink } from "../ui.jsx";
+import { ContactAlt, WhatsAppLink } from "../ui.jsx";
 
 // Homepage approved on 2026-11-18 (prototype site-novo-2026-11/fonte/prototipo-home.html): navy opening, closing
 // commitments, final call and footer; paper in between. Cyan marks only the action button (on dark) and the focus.
@@ -159,6 +159,7 @@ export function HomePage({ locale }) {
           <h2 id="final-title" data-reveal="">{home.final.title}</h2>
           <p data-reveal="">{home.final.text}</p>
           <WhatsAppLink message={t.waDiagnosis} className="hm-btn hm-btn--cyan" icon={false}>{home.final.cta}</WhatsAppLink>
+          <ContactAlt locale={locale} agent />
           <small>{home.final.note}</small>
         </div>
       </section>

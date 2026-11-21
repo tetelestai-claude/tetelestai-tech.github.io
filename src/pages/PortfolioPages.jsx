@@ -108,7 +108,7 @@ export function PortfolioIndex({ locale }) {
         </div>
       </section>
 
-      <CtaFinal title={page.final.title} text={page.final.text} note={t.safety}>
+      <CtaFinal title={page.final.title} text={page.final.text} note={t.safety} locale={locale}>
         <WhatsAppLink message={t.waDefault}>{t.ctaWhatsApp}</WhatsAppLink>
       </CtaFinal>
     </PageShell>
@@ -169,7 +169,7 @@ export function CasePage({ locale, page }) {
         </div>
       </section>
 
-      <CtaFinal title={copy.final.title} text={copy.final.text} note={t.safety}>
+      <CtaFinal title={copy.final.title} text={copy.final.text} note={t.safety} locale={locale}>
         <WhatsAppLink message={message}>{copy.cta}</WhatsAppLink>
       </CtaFinal>
     </PageShell>

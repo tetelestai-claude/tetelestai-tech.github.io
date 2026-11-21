@@ -1,5 +1,6 @@
 import { getAnalytics } from "./analytics.mjs";
 import { whatsappHref } from "./contact.mjs";
+import { UI } from "./home-content.mjs";
 
 /* ---------- Icons (inline, decorative) ---------- */
 const svg = { "aria-hidden": "true", fill: "none", stroke: "currentColor", strokeWidth: 2, strokeLinecap: "round", strokeLinejoin: "round", viewBox: "0 0 24 24", focusable: "false" };
@@ -201,8 +202,21 @@ export function Receipt({ data, message }) {
   );
 }
 
+// Under the final button: who answers first on WhatsApp (diagnosis pages only) and the e-mail as a second way in.
+// The e-mail is a plain link and sends no Analytics event.
+export const CONTACT_EMAIL = "contato@tetelestai.tech";
+export function ContactAlt({ locale, agent = false }) {
+  const t = UI[locale];
+  return (
+    <p className="contact-alt">
+      {agent && <span>{t.agentNote}</span>}
+      <span>{t.emailAlt} <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a></span>
+    </p>
+  );
+}
+
 // Closing call to action (navy, like the homepage final call; the circuit artwork was removed on 18/11).
-export function CtaFinal({ title, text, note, children }) {
+export function CtaFinal({ title, text, note, locale, agent = false, children }) {
   return (
     <section className="cta-final dark" aria-labelledby="cta-final-title">
       <div className="wrap cta-final__in">
@@ -210,6 +224,7 @@ export function CtaFinal({ title, text, note, children }) {
           <h2 className="h2" id="cta-final-title">{title}</h2>
           <p className="lead">{text}</p>
           {children}
+          {locale && <ContactAlt locale={locale} agent={agent} />}
           {note && <p className="note">{note}</p>}
         </div>
       </div>
